@@ -38,3 +38,4 @@ class Censo(models.Model):
     edad_6a14    = models.IntegerField(blank=True, null=True)
     edad_15a64    = models.IntegerField(blank=True, null=True)
     edad_15a64   = models.IntegerField(blank=True, null=True)
+    edad_65yma   = models.IntegerField(blank=True, null=True)
