@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EquipamientoEducacion,Limite_poligono
+from .models import *
 from shapely.wkb import loads
 
 class EquipamientoSerializer(serializers.ModelSerializer):
@@ -40,3 +40,8 @@ class limiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Limite_poligono
         fields = ['gid', 'geom']
+class censoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Censo
+        fields = ['id', 'uv','total_pers', 'total_vivi','hombres', 'mujeres','edad_0a5', 'edad_6a14','edad_15a64', 'edad_15a64',]

@@ -25,3 +25,16 @@ class Limite_poligono(models.Model):
     class Meta:
         managed = False
         db_table = 'Limite_poligono'
+
+class Censo(models.Model):
+    id = models.AutoField(primary_key=True)
+    uv  = models.CharField(max_length=254, blank=True, null=True)
+    total_pers  = models.IntegerField(blank=True, null=True)
+    total_vivi  = models.IntegerField(blank=True, null=True)
+    hombres   = models.IntegerField(blank=True, null=True)
+    mujeres   = models.IntegerField(blank=True, null=True)
+    
+    edad_0a5    = models.IntegerField(blank=True, null=True)
+    edad_6a14    = models.IntegerField(blank=True, null=True)
+    edad_15a64    = models.IntegerField(blank=True, null=True)
+    edad_15a64   = models.IntegerField(blank=True, null=True)
