@@ -44,4 +44,4 @@ class censoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Censo
-        fields = ['id', 'uv','total_pers', 'total_vivi','hombres', 'mujeres','edad_0a5', 'edad_6a14','edad_15a64', 'edad_15a64',]
+        fields = ['id', 'uv','total_pers', 'total_vivi','hombres', 'mujeres','edad_0a5', 'edad_6a14','edad_15a64', 'edad_15a64','edad_65yma']
