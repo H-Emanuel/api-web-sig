@@ -21,13 +21,16 @@
           <label for="locations">Selecciona una ubicación:</label>
         </div>
         <div id="div-button">
-          {% comment %} <button id="create-location-button" class="btn-success">Crear Nueva Ubicación</button> {% endcomment %}
+          <button id="show-tipology-percentages-button" class="btn-info">Mostrar Porcentajes por Tipología</button>
+
           <button id="show-location-button" class="btn-primary">Mostrar Ubicación</button>
           <button id="show-all-locations-button" class="btn-secondary">Mostrar Todas las Ubicaciones</button>
           <button id="show-polygon-button" class="btn-info">Mostrar Polígono</button>
         </div>
       </div>
       <div id="map"></div>
+      <div id="tipology-percentages-info"></div>
+
     </div>
 
     {% comment %} <script src="{% static 'admin/js/crud.js' %}"></script> {% endcomment %}

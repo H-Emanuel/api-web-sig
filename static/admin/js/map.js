@@ -43,7 +43,7 @@ fetch(`${baseUrl}/get_active_locations/`)
     activeLocations.forEach((location) => {
       const option = document.createElement('option');
       option.value = location.gid;
-      option.text = location.nombre;      
+      option.text = location.nombre;
 
       locationSelector.appendChild(option);
     });
@@ -280,16 +280,25 @@ function openEditDialog(gid) {
       // Crear el contenido del formulario
       const formContent = `
       <h2>Editar Ubicación</h2>
-      <form id="editForm" method="post" action="/edit/${gid}/">
-        <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" value="${location.nombre}" /><br />
-        <label for="nombre">Tipología:</label>
-        <input type="text" name="tipologia" value="${location.tipologia}" /><br />
-        <label for="nombre">Consultorio:</label>
+        <form id="editForm" method="post" action="/edit/${gid}/">
+          <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">
+          <label for="nombre">Nombre:</label>
+          <input type="text" name="nombre" value="${location.nombre}" /><br />
+          <label for="tipologia">Tipología:</label>
+          <select name="tipologia" required>
+            <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
+            <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
+            <option value="EDUC ESPECIAL">EDUC ESPECIAL</option>
+            <option value="EDUC MEDIA">EDUC MEDIA</option>
+            <option value="EDUC PRE Y BASICA">EDUC PRE Y BASICA</option>
+            <option value="EDUC SUPERIOR">EDUC SUPERIOR</option>
+            <option value="EDUC TECNICA">EDUC TECNICA</option>
+            <option value="JARDIN INFANTIL">JARDIN INFANTIL</option>
+          </select><br />
+          <label for="nombre">Consultorio:</label>
         <input type="text" name="consultori" value="${location.consultori}" /><br />
-        <input type="submit" value="Guardar cambios" />
-      </form>
+          <input type="submit" value="Guardar cambios" />
+        </form>
       `;
       // Crear y abrir un popup personalizado con el formulario de edición
       const editPopup = L.popup()
@@ -397,7 +406,17 @@ function openCreateDialog(latitude, longitude) {
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required /><br />
         <label for="tipologia">Tipología:</label>
-        <input type="text" name="tipologia" required /><br />
+        <select name="tipologia" required>
+          <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
+          <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
+          <option value="EDUC ESPECIAL">EDUC ESPECIAL</option>
+          <option value="EDUC MEDIA">EDUC MEDIA</option>
+          <option value="EDUC PRE Y BASICA">EDUC PRE Y BASICA</option>
+          <option value="EDUC SUPERIOR">EDUC SUPERIOR</option>
+          <option value="EDUC TECNICA">EDUC TECNICA</option>
+          <option value="JARDIN INFANTIL">JARDIN INFANTIL</option>
+        
+        </select><br />
         <label for="consultori">Consultorio:</label>
         <input type="text" name="consultori" required /><br />
         <label for="poblacion">Poblacion:</label>
@@ -433,3 +452,82 @@ function openCreateDialog(latitude, longitude) {
     });
   }
 }
+// Obtener el botón por su ID
+const showTipologyInfoButton = document.getElementById('show-tipology-percentages-button');
+
+// Asignar la función al evento de clic del botón
+showTipologyInfoButton.addEventListener('click', showTipologyInfo);
+
+// Variable de estado para alternar entre porcentajes y cantidades
+let showPercentages = true;
+
+// Función para inicializar la información sobre las tipologías
+function initializeTipologyInfo() {
+    const tipologyInfoContainer = document.getElementById('tipology-percentages-info');
+
+    // Limpiar el contenido previo del contenedor
+    tipologyInfoContainer.innerHTML = '';
+
+    // Mostrar la información de las tipologías al cargar la página
+    showTipologyInfo();
+}
+
+// Función para mostrar la información sobre las tipologías
+function showTipologyInfo() {
+    const tipologyInfoContainer = document.getElementById('tipology-percentages-info');
+
+    // Limpiar el contenido previo del contenedor
+    tipologyInfoContainer.innerHTML = '';
+
+    // Solicitud para obtener datos de la API
+    fetch(`${baseUrl}/api/equipamientos/`)
+        .then((response) => response.json())
+        .then((responseData) => {
+            // Inicializar un objeto para contar las ubicaciones por tipología
+            const tipologyCounts = {
+                'CENTRO EDUCATIVO': 0,
+                'EDUC BASICA Y MEDIA': 0,
+                'EDUC ESPECIAL': 0,
+                'EDUC MEDIA': 0,
+                'EDUC PRE Y BASICA': 0,
+                'EDUC SUPERIOR': 0,
+                'EDUC TECNICA': 0,
+                'JARDIN INFANTIL': 0
+            };
+
+            // Contar las ubicaciones por tipología
+            responseData.forEach((location) => {
+                tipologyCounts[location.tipologia] += 1;
+            });
+
+            // Calcular el total de ubicaciones
+            const totalLocations = responseData.length;
+
+            // Crear un elemento <ul> para mostrar la información
+            const infoList = document.createElement('ul');
+
+            // Calcular y agregar la información al elemento <ul>
+            for (const tipologia in tipologyCounts) {
+                if (tipologyCounts.hasOwnProperty(tipologia)) {
+                    const count = tipologyCounts[tipologia];
+
+                    // Mostrar porcentajes o cantidades según el estado actual
+                    const infoValue = showPercentages ? (count / totalLocations) * 100 : count;
+
+                    const infoItem = document.createElement('li');
+                    infoItem.textContent = `${tipologia}: ${infoValue.toFixed(showPercentages ? 2 : 0)} ${showPercentages ? '%' : 'ubicaciones'}`;
+                    infoList.appendChild(infoItem);
+                }
+            }
+
+            // Agregar la lista de información al contenedor
+            tipologyInfoContainer.appendChild(infoList);
+        })
+        .catch((error) => console.error('Error al cargar los datos desde la API:', error));
+
+    // Alternar el estado para la próxima vez
+    showPercentages = !showPercentages;
+}
+
+// Llamar a la función para inicializar la información sobre las tipologías al cargar la página
+initializeTipologyInfo();

@@ -93,7 +93,7 @@ label {
   font-weight: bold;
 }
 
-input {
+input, select {
   padding: 10px;
   margin-bottom: 5px;
   box-sizing: border-box;
@@ -102,6 +102,7 @@ input {
   width: -webkit-fill-available;
   font-family: 'Trebuchet MS';
 }
+
 
 /* Estilos para el botón de submit */
 
@@ -201,7 +202,8 @@ input[type="submit"]:hover {
 
 #show-location-button,
 #show-all-locations-button,
-#show-polygon-button {
+#show-polygon-button,
+#show-tipology-percentages-button {
   padding: 8px;
   background-color: #F7EA53;
   color: #16233E;
@@ -236,7 +238,8 @@ input[type="submit"]:hover {
 
 #show-location-button:hover,
 #show-all-locations-button:hover,
-#show-polygon-button:hover {
+#show-polygon-button:hover,
+#show-tipology-percentages-button:hover {
   /* background-color: #f9ef82; */
   transition: box-shadow 0.5s;
   box-shadow: 0px 0px 5px 5px #F7EA53;
@@ -365,6 +368,16 @@ input[type="submit"]:hover {
   border-radius: 4px;
 }
 
+#create-form-container select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  border: 1px solid #a9dbed;
+  border-radius: 4px;
+}
+
+
 #create-form-container input[type="submit"] {
   background-color: #4CAF50;
   color: #fff;
@@ -405,4 +418,24 @@ input[type="submit"]:hover {
 
 #div-monospace {
   font-family: monospace;
+}
+
+
+#tipology-percentages-info {
+  margin-top: 25px;
+}
+/* Estilos para la lista de información de tipologías */
+#tipology-percentages-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#tipology-percentages-info ul li {
+  margin-right: 20px; /* Espacio entre cada elemento */
+  font-size: 16px; /* Tamaño de fuente */
+  white-space: nowrap; /* Evitar que los elementos se desborden */
 }
