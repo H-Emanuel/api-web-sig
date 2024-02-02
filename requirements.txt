@@ -10,3 +10,6 @@ pytz==2023.3
 shapely==2.0.1
 sqlparse==0.4.4
 typing_extensions==4.7.1
+pyproj==3.5.0
+proj==0.2.0
+

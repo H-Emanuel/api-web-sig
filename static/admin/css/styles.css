@@ -1,0 +1,408 @@
+/* Definición de colores en Pantone */
+
+/* PANTONE Red 032 C (Rojo) */
+/* 100% = #E73C45 */
+/* 80% = #ed6c65 */
+/* 60% = #f39589 */
+/* 40% = #f7bcb0 */
+/* 20% = #fcdfd8 */
+
+/* PANTONE 637 C (Celeste) */
+/* 100% = #4BBFE0 */
+/* 80% = #84cee6 */
+/* 60% = #a9dbed */
+/* 40% = #c9e8f4 */
+/* 20% = #e5f4fa */
+
+/* PANTONE 106 C (Amarillo) */
+/* 100% = #F7EA53 */
+/* 80% = #f9ef82 */
+/* 60% = #fbed73 */
+/* 40% = #fbf3a7 */
+/* 20% = #fefbe5 */
+
+/* PANTONE 289 C (Negro) */
+/* 100% = #16233E */
+/* 80% = #383d58 */
+/* 60% = #606078 */
+/* 40% = #8f8da0 */
+/* 20% = #c4c2cd */
+
+@font-face {
+  font-family: 'Helvetica Roman';
+  src: url('/static/admin/fonts/HelveticaRoman.ttf') format('truetype');
+  font-weight: bold;
+  font-style: initial;
+}
+
+/* Estilos globales para el cuerpo de la página */
+
+body {
+  color: ghostwhite;
+  font-family: 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #383d58;
+}
+
+/* Estilos para iframes */
+
+iframe {
+  overflow: clip !important;
+  border-width: 2px;
+  border-style: none;
+  border-image: none;
+}
+
+/* Estilos para select y div */
+
+select,
+div {
+  font-family: 'Trebuchet MS';
+}
+
+button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-inline: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+h2 {
+  color: #333;
+  margin-block: 5px;
+}
+
+label {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: -webkit-fill-available;
+  font-family: 'Trebuchet MS';
+}
+
+/* Estilos para el botón de submit */
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: larger;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: #69d46c;
+}
+
+/* Estilos para el contenedor del mapa */
+
+#map-container {
+  text-align: center;
+  padding: 30px;  
+  border: 2.5px solid #606078;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
+  background-color: #606078;
+  width: 90%;
+}
+/* Estilos para el mapa */
+
+#map {
+  width: 100%;
+  height: 500px;
+  border: 2px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+  margin-top: 30px;
+}
+
+#map:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #a9dbed;
+}
+
+
+/* Estilos para el título del mapa */
+
+#map-title {  
+  font-size: 25px;
+}
+
+/* Estilos para el selector de ubicación */
+
+#location-selector {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#location-selector label {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#location-selector select {
+  width: min-content;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+  background-color: #383d58;
+  color: ghostwhite;
+}
+
+#location-selector select:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #a9dbed;
+}
+
+/* Estilos para los botones */
+
+#button-container {
+  margin: 10px 0;
+}
+
+
+
+
+/* Estilos para los botones de acción */
+
+#show-location-button,
+#show-all-locations-button,
+#show-polygon-button {
+  padding: 8px;
+  background-color: #F7EA53;
+  color: #16233E;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+}
+
+
+#create-location-button {
+  padding: 8px;
+  background-color: #4BBFE0;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 1.35);
+}
+
+
+#create-location-button:hover {
+  /* background-color: #84cee6; */
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #4BBFE0;
+}
+
+#show-location-button:hover,
+#show-all-locations-button:hover,
+#show-polygon-button:hover {
+  /* background-color: #f9ef82; */
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #F7EA53;
+
+}
+
+#div-button {
+  margin: 10px;
+}
+
+/* Estilos para el formulario de edición */
+
+#body-form {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: medium;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: transparent;
+}
+
+#div-form {
+  display: contents;
+}
+
+#content {
+  background-color: #cceaf5;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.75);
+  width: 30%;
+}
+
+/* Estilos específicos para los botones de editar y eliminar */
+
+.edit-btn,
+.delete-btn {
+  background-color: #4BBFE0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: #84cee6;
+}
+
+.delete-btn {
+  background-color: #E73C45;
+}
+
+.delete-btn:hover {
+  background-color: #ed6c65;
+}
+
+/* Estilos para el contenido de los popups de Leaflet */
+
+.leaflet-popup-content-wrapper a {
+  display: block;
+  margin-top: 8px;
+  padding: 4px;
+  background-color: #E73C45;
+  color: white !important;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leaflet-popup-content-wrapper a:hover {
+  background-color: #E73C45;
+}
+
+.leaflet-popup-content-wrapper form {
+  border: none;
+  box-shadow: none;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #fefbe5 !important;
+  color: #333;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+#create-form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  background-color: #e5f4fa;
+  border: 1px solid #a9dbed;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+  max-width: 300px;
+  width: 100%;
+}
+
+#create-form-container h2 {
+  font-size: larger;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+#create-form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+  font-size: small;
+}
+
+#create-form-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  border: 1px solid #a9dbed;
+  border-radius: 4px;
+}
+
+#create-form-container input[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+#create-form-container input[type="submit"]:hover {
+  background-color: #69d46c;
+}
+
+#create-form-container input[type="submit"]:focus {
+  outline: none;
+}
+
+/* Ajusta los estilos según sea necesario para otros tipos de input o elementos del formulario */
+#test-div {
+  background-color: #16233E;
+}
+
+.leaflet-touch .leaflet-bar a:first-child {  
+  background-color: #383d58;
+  color: ghostwhite;
+}
+
+.leaflet-touch .leaflet-bar a:last-child {
+  background-color: #383d58;
+  color: ghostwhite;
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  border: 2px solid #4BBFE0 !important;
+  
+}
+
+#div-monospace {
+  font-family: monospace;
+}
