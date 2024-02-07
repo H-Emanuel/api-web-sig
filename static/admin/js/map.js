@@ -90,12 +90,20 @@ function showAllLocations() {
   // Limpiar marcadores
   markerGroup.clearLayers();
 
+  // Obtener el valor seleccionado del filtro de tipologías
+  const selectedTipology = document.getElementById('tipology-filter').value;
+
   // Solicitud para obtener datos de la API
   fetch(`${baseUrl}/api/equipamientos/`)
     .then((response) => response.json())
     .then((responseData) => {
-      // Iterar sobre las ubicaciones y agregar un marcador
-      responseData.forEach((location) => {
+      // Filtrar ubicaciones por tipología si se selecciona una
+      const filteredLocations = selectedTipology
+        ? responseData.filter((location) => location.tipologia === selectedTipology)
+        : responseData;
+
+      // Iterar sobre las ubicaciones filtradas y agregar un marcador
+      filteredLocations.forEach((location) => {
         const newMarker = L.marker([location.y_coord, location.x_coord])
           .bindPopup(`
               <strong>${location.nombre}</strong><br>
@@ -110,6 +118,7 @@ function showAllLocations() {
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
 }
+
 
 
 // FUNCIÓN PARA MOSTRAR EL POLÍGONO

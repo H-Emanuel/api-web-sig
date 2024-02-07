@@ -39,7 +39,9 @@
 
 body {
   color: ghostwhite;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'ABeeZee', sans-serif;
+
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -63,7 +65,9 @@ iframe {
 
 select,
 div {
-  font-family: 'Trebuchet MS';
+  font-family: 'ABeeZee', sans-serif;
+
+
 }
 
 button {
@@ -93,14 +97,17 @@ label {
   font-weight: bold;
 }
 
-input, select {
+input,
+select {
   padding: 10px;
-  margin-bottom: 5px;
+
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: -webkit-fill-available;
-  font-family: 'Trebuchet MS';
+  font-family: 'ABeeZee', sans-serif;
+
+
 }
 
 
@@ -126,14 +133,15 @@ input[type="submit"]:hover {
 
 #map-container {
   text-align: center;
-  padding: 30px;  
+  padding: 20px;
   border: 2.5px solid #606078;
   border-radius: 10px;
   box-sizing: border-box;
   box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
   background-color: #606078;
-  width: 90%;
+  width: 95%;
 }
+
 /* Estilos para el mapa */
 
 #map {
@@ -142,7 +150,7 @@ input[type="submit"]:hover {
   border: 2px;
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 #map:hover {
@@ -153,17 +161,22 @@ input[type="submit"]:hover {
 
 /* Estilos para el título del mapa */
 
-#map-title {  
+#map-title {
   font-size: 25px;
 }
 
 /* Estilos para el selector de ubicación */
 
 #location-selector {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   align-items: center;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    ". .";
 }
 
 #location-selector label {
@@ -171,23 +184,8 @@ input[type="submit"]:hover {
   margin-bottom: 10px;
 }
 
-#location-selector select {
-  width: min-content;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
-  background-color: #383d58;
-  color: ghostwhite;
-}
 
-#location-selector select:hover {
-  transition: box-shadow 0.5s;
-  box-shadow: 0px 0px 5px 5px #a9dbed;
-}
+
 
 /* Estilos para los botones */
 
@@ -247,13 +245,32 @@ input[type="submit"]:hover {
 }
 
 #div-button {
-  margin: 10px;
+
+  display: grid;
+  grid-auto-columns: 1fr;
+  justify-items: end;
+  grid-auto-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    ". ."
+    "filter filter";
+}
+
+#filter {
+  display: flex;
+  gap: 0px 0px;
+  grid-area: filter;
+  flex-direction: row-reverse;
 }
 
 /* Estilos para el formulario de edición */
 
 #body-form {
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'ABeeZee', sans-serif;
+
+
   font-size: medium;
   margin: 0;
   padding: 0;
@@ -401,7 +418,7 @@ input[type="submit"]:hover {
   background-color: #16233E;
 }
 
-.leaflet-touch .leaflet-bar a:first-child {  
+.leaflet-touch .leaflet-bar a:first-child {
   background-color: #383d58;
   color: ghostwhite;
 }
@@ -411,9 +428,10 @@ input[type="submit"]:hover {
   color: ghostwhite;
 }
 
-.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
   border: 2px solid #4BBFE0 !important;
-  
+
 }
 
 #div-monospace {
@@ -424,18 +442,84 @@ input[type="submit"]:hover {
 #tipology-percentages-info {
   margin-top: 25px;
 }
+
 /* Estilos para la lista de información de tipologías */
 #tipology-percentages-info ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    ". . . ."
+    ". . . .";
+  justify-items: start;
 }
 
 #tipology-percentages-info ul li {
-  margin-right: 20px; /* Espacio entre cada elemento */
-  font-size: 16px; /* Tamaño de fuente */
-  white-space: nowrap; /* Evitar que los elementos se desborden */
+  margin-right: 20px;
+  /* Espacio entre cada elemento */
+  font-size: 16px;
+  /* Tamaño de fuente */
+  white-space: nowrap;
+  /* Evitar que los elementos se desborden */
+}
+
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+#map-container-header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  gap: 10px 10px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . .";
+}
+
+
+#map-container-header select {
+  width: min-content;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+  background-color: #383d58;
+  color: ghostwhite;
+}
+
+
+#map-container-header select:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #a9dbed;
 }
