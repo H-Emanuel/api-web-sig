@@ -132,8 +132,6 @@ input[type="submit"]:hover {
 /* Estilos para el contenedor del mapa */
 
 #map-container {
-  display: flex;
-  flex-direction: column;
   text-align: center;
   padding: 20px;
   border: 2.5px solid #606078;
@@ -142,7 +140,6 @@ input[type="submit"]:hover {
   box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
   background-color: #606078;
   width: 95%;
-  height: 90%;
 }
 
 /* Estilos para el mapa */
@@ -443,7 +440,7 @@ input[type="submit"]:hover {
 
 
 #tipology-percentages-info {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 /* Estilos para la lista de información de tipologías */
@@ -454,19 +451,18 @@ input[type="submit"]:hover {
   grid-template-rows: 1fr 1fr;
   gap: 10px 10px;
   grid-template-areas:
-      ". . . ."
-      ". . . .";
+    ". . . ."
+    ". . . .";
   justify-items: start;
-  margin: 0;
 }
 
 #tipology-percentages-info ul li {
-  display: flex;
-  align-items: center;
-  gap: inherit;
   margin-right: 20px;
+  /* Espacio entre cada elemento */
   font-size: 16px;
+  /* Tamaño de fuente */
   white-space: nowrap;
+  /* Evitar que los elementos se desborden */
 }
 
 

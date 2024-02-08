@@ -61,55 +61,6 @@ function initializeMap() {
   return map;
 }
 
-
-const baseUrlMarker = `${baseUrl}/staticfiles/admin/img`;
-
-// Define los íconos personalizados para cada tipología
-const iconOptions = {
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-};
-
-const icons = {
-  'CENTRO EDUCATIVO': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/centro_educativo_icon.png`,
-  }),
-  'EDUC BASICA Y MEDIA': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.png`,    
-  }),
-  'EDUC ESPECIAL': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_especial_icon.png`,
-  }),
-  'EDUC MEDIA': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_media_icon.png`,
-  }),
-  'EDUC PRE Y BASICA': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_pre_y_basica_icon.png`,    
-  }),
-  'EDUC SUPERIOR': L.icon({
-    ...iconOptions,    
-    iconUrl: `${baseUrlMarker}/educ_superior_icon.png`,    
-
-  }),
-  'EDUC TECNICA': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_tecnica_icon.png`,    
-    
-  }),
-  'JARDIN INFANTIL': L.icon({
-    ...iconOptions,
-    iconUrl: `${baseUrlMarker}/jardin_infantil_icon.png`,        
-  }),
-  // Agrega íconos para las demás tipologías aquí
-};
-
-
 // Función para mostrar la ubicación seleccionada en el mapa
 function showSelectedLocation() {
   const selectedLocationId = locationSelector.value;
@@ -120,31 +71,19 @@ function showSelectedLocation() {
       console.log(selectedLocation);
       markerGroup.clearLayers();
       map.setView([selectedLocation.y_coord, selectedLocation.x_coord], 17);
-
-      // Obtener el ícono correspondiente según la tipología
-      const icon = icons[selectedLocation.tipologia];
-
-      // Verificar si el ícono está definido antes de crear el marcador
-      if (icon) {
-        // Crear el marcador con el ícono personalizado
-        const newMarker = L.marker([selectedLocation.y_coord, selectedLocation.x_coord], { icon })
-          .bindPopup(`
-            <strong>${selectedLocation.nombre}</strong><br>
-            ${selectedLocation.tipologia}<br>
-            Población: ${selectedLocation.poblacion}<br>
-            <button class="edit-btn" onclick="openEditDialog(${selectedLocation.gid})">Editar</button>
-            <button class="delete-btn" onclick="deleteLocation(${selectedLocation.gid})">Eliminar</button>
-          `)
-          .openPopup();
-
-        markerGroup.addLayer(newMarker);
-      } else {
-        console.error('Ícono no definido para la tipología:', selectedLocation.tipologia);
-      }
+      const newMarker = L.marker([selectedLocation.y_coord, selectedLocation.x_coord])
+        .bindPopup(`
+          <strong>${selectedLocation.nombre}</strong><br>
+          ${selectedLocation.tipologia}<br>
+          Población: ${selectedLocation.poblacion}<br>
+          <button class="edit-btn" onclick="openEditDialog(${selectedLocation.gid})">Editar</button>
+          <button class="delete-btn" onclick="deleteLocation(${selectedLocation.gid})">Eliminar</button>
+        `)
+        .openPopup();
+      markerGroup.addLayer(newMarker);
     })
     .catch((error) => console.error('Error al cargar los detalles de la ubicación desde la API:', error));
 }
-
 
 // Función para mostrar todas las ubicaciones en el mapa
 function showAllLocations() {
@@ -168,23 +107,18 @@ function showAllLocations() {
         // Obtener el ícono correspondiente según la tipología
         const icon = icons[location.tipologia];
 
-        // Verificar si el ícono está definido antes de crear el marcador
-        if (icon) {
-          // Crear el marcador con el ícono personalizado
-          const newMarker = L.marker([location.y_coord, location.x_coord], { icon })
-            .bindPopup(`
-              <strong>${location.nombre}</strong><br>
-              ${location.tipologia}<br>
-              Población: ${location.poblacion}<br>
-              <button class="edit-btn" onclick="openEditDialog(${location.gid})">Editar</button>
-              <button class="delete-btn" onclick="deleteLocation(${location.gid})">Eliminar</button>
-            `)
-            .openPopup();
+        // Crear el marcador con el ícono personalizado
+        const newMarker = L.marker([location.y_coord, location.x_coord], { icon })
+          .bindPopup(`
+            <strong>${location.nombre}</strong><br>
+            ${location.tipologia}<br>
+            Población: ${location.poblacion}<br>
+            <button class="edit-btn" onclick="openEditDialog(${location.gid})">Editar</button>
+            <button class="delete-btn" onclick="deleteLocation(${location.gid})">Eliminar</button>
+          `)
+          .openPopup();
 
-          markerGroup.addLayer(newMarker);
-        } else {
-          console.error('Ícono no definido para la tipología:', location.tipologia);
-        }
+        markerGroup.addLayer(newMarker);
       });
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
@@ -595,13 +529,7 @@ function showTipologyInfo() {
           const infoValue = showPercentages ? (count / totalLocations) * 100 : count;
 
           const infoItem = document.createElement('li');
-          const icon = document.createElement('img');
-          icon.src = icons[tipologia].options.iconUrl; // Obtener la URL del icono de la tipología
-          icon.alt = tipologia; // Establecer el atributo alt del icono
-
-          infoItem.appendChild(icon); // Agregar el icono al elemento <li>
-          infoItem.innerHTML += `${tipologia}: ${infoValue.toFixed(showPercentages ? 2 : 0)} ${showPercentages ? '%' : 'ubicaciones'}`;
-
+          infoItem.textContent = `${tipologia}: ${infoValue.toFixed(showPercentages ? 2 : 0)} ${showPercentages ? '%' : 'ubicaciones'}`;
           infoList.appendChild(infoItem);
         }
       }
@@ -615,6 +543,21 @@ function showTipologyInfo() {
   showPercentages = !showPercentages;
 }
 
-
 // Llamar a la función para inicializar la información sobre las tipologías al cargar la página
 initializeTipologyInfo();
+
+// Define los íconos personalizados para cada tipología
+const iconOptions = {
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+};
+
+const icons = {
+  'CENTRO EDUCATIVO': L.icon({
+    ...iconOptions,
+    iconUrl: '{% staticfiles "admin/img/centro_educativo_icon.png" %}',
+  }),
+
+  // Agrega íconos para las demás tipologías aquí
+};
