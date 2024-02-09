@@ -56,7 +56,9 @@ function initializeMap() {
   const map = L.map('map').setView(initialView, 14);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    //className: 'map-tiles'
+
   }).addTo(map);
   return map;
 }
@@ -78,7 +80,7 @@ const icons = {
   }),
   'EDUC BASICA Y MEDIA': L.icon({
     ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.png`,    
+    iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.png`,
   }),
   'EDUC ESPECIAL': L.icon({
     ...iconOptions,
@@ -90,21 +92,21 @@ const icons = {
   }),
   'EDUC PRE Y BASICA': L.icon({
     ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_pre_y_basica_icon.png`,    
+    iconUrl: `${baseUrlMarker}/educ_pre_y_basica_icon.png`,
   }),
   'EDUC SUPERIOR': L.icon({
-    ...iconOptions,    
-    iconUrl: `${baseUrlMarker}/educ_superior_icon.png`,    
+    ...iconOptions,
+    iconUrl: `${baseUrlMarker}/educ_superior_icon.png`,
 
   }),
   'EDUC TECNICA': L.icon({
     ...iconOptions,
-    iconUrl: `${baseUrlMarker}/educ_tecnica_icon.png`,    
-    
+    iconUrl: `${baseUrlMarker}/educ_tecnica_icon.png`,
+
   }),
   'JARDIN INFANTIL': L.icon({
     ...iconOptions,
-    iconUrl: `${baseUrlMarker}/jardin_infantil_icon.png`,        
+    iconUrl: `${baseUrlMarker}/jardin_infantil_icon.png`,
   }),
   // Agrega íconos para las demás tipologías aquí
 };
@@ -191,8 +193,6 @@ function showAllLocations() {
 }
 
 
-
-// FUNCIÓN PARA MOSTRAR EL POLÍGONO
 function showPolygon() {
   // Limpiar todas las capas de polígonos existentes en el mapa
   map.eachLayer(layer => {
@@ -203,21 +203,19 @@ function showPolygon() {
   // Cambiar el estado de visibilidad del polígono
   isPolygonVisible = !isPolygonVisible;
 
-  // Agregar un manejador de eventos para restaurar la sombra cuando el mouse deja el botón
-  showPolygonButton.addEventListener('mouseleave', function () {
-    // Eliminar cualquier clase de sombra que se haya agregado al pasar el cursor sobre el botón    
-    showPolygonButton.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 1.35)';
-  });
+  // Establecer el botón adecuado y su estilo según la visibilidad del polígono
+  const showPolygonButton = document.getElementById('show-polygon-button');
 
   if (isPolygonVisible) {
-    showPolygonButton.textContent = 'Ocultar Polígono';
-    showPolygonButton.style.backgroundColor = '#E73C45';
-    showPolygonButton.style.color = 'white';
-    showPolygonButton.addEventListener('mouseover', () => {
-      showPolygonButton.style.boxShadow = '0px 0px 5px 5px #E73C45';
-    });
-    // Resto del código para mostrar el polígono
 
+    showPolygonButton.classList.remove('btn-show-polygon');
+    showPolygonButton.classList.add('btn-no-show-polygon');
+  } else {
+
+    showPolygonButton.classList.remove('btn-no-show-polygon');
+    showPolygonButton.classList.add('btn-show-polygon');
+  }
+  if (isPolygonVisible) {
     // Definir la proyección UTM actual (ajustar según sea necesario)
     const utmProjection = '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs';
 
@@ -232,7 +230,6 @@ function showPolygon() {
 
           // Utilizar wellknown para analizar la geometría WKT
           const polygonGeometry = wellknown.parse(polygonGeometryWKT);
-          //console.log(polygonGeometry);
 
           // Función para convertir [Norte, Este] a grado decimal usando proj4
           const convertToDecimalDegrees = (coordinate) => {
@@ -251,7 +248,6 @@ function showPolygon() {
           } else if (polygonGeometry.type === 'MultiPolygon') {
             // Almacenar las coordenadas convertidas para cada polígono
             const polygons = polygonGeometry.coordinates.map((polygon, index) => {
-              //console.log(`Polígono ${index + 1} (Grado Decimal):`);
               const convertedCoords = polygon[0].map(coord => convertToDecimalDegrees(coord));
 
               // Comprobar si convertedCoords es undefined o vacío
@@ -286,10 +282,6 @@ function showPolygon() {
               const polygonPoints = [];
               for (let i = 0; i < coordinatesArray.length; i++) {
                 const polygonTest = coordinatesArray[i];
-                //console.log(`Elemento ${i}:`, polygonTest);
-                //console.log(`Latitud: ${polygonTest[0]}`);
-                //console.log(`Longitud: ${polygonTest[1]}`);
-                // Agregar el punto al arreglo
                 polygonPoints.push([polygonTest[1], polygonTest[0]]);
               }
 
@@ -300,11 +292,7 @@ function showPolygon() {
               if (polygon) {
                 map.fitBounds(polygon.getBounds());
               }
-              //console.log(coordinatesArray);
-
             });
-            // Hacer algo con la variable 'validPolygons' si es necesario
-            // console.log('Todas las coordenadas convertidas:', validPolygons);
           } else {
             console.error(`La geometría recibida (${polygonGeometry.type}) no es un polígono.`);
           }
@@ -313,15 +301,8 @@ function showPolygon() {
         }
       })
       .catch((error) => console.error('Error al cargar el polígono desde la API:', error));
-
   } else {
-    showPolygonButton.textContent = 'Mostrar Polígono';
-    showPolygonButton.style.backgroundColor = '#4BBFE0';
-    showPolygonButton.style.color = 'white';
-    showPolygonButton.addEventListener('mouseover', () => {
-      showPolygonButton.style.boxShadow = '0px 0px 5px 5px #4BBFE0';
-    });
-    // Si el polígono no está visible, no hacer nada o puedes mostrar un mensaje, etc.
+
     console.log('Polígono oculto.');
   }
 }
@@ -618,3 +599,47 @@ function showTipologyInfo() {
 
 // Llamar a la función para inicializar la información sobre las tipologías al cargar la página
 initializeTipologyInfo();
+
+
+const toggleModeButton = document.getElementById('toggle-mode-btn');
+const mapContainer = document.getElementById('map-container');
+// Definir el control personalizado
+const CustomControl = L.Control.extend({
+  onAdd: function (map) {
+    const initialMode = mapContainer.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
+
+    const button = L.DomUtil.create('button', `custom-control-button ${initialMode === 'dark_mode' ? 'btn-info-dark' : 'btn-info'}`);
+    button.innerHTML = `<span class="material-symbols-outlined">${initialMode}</span>`;
+
+    // Agregar un manejador de eventos clic al botón si el elemento se encuentra
+    if (button) {
+      button.addEventListener('click', function (event) {
+        event.stopPropagation();
+
+        map.dragging.disable();
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+        map.scrollWheelZoom.disable();
+
+        mapContainer.classList.toggle('dark-mode');
+        button.classList.toggle('btn-info-dark');
+        button.classList.toggle('btn-info');
+
+        const newMode = mapContainer.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
+        button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
+
+        setTimeout(function () {
+          map.dragging.enable();
+          map.touchZoom.enable();
+          map.doubleClickZoom.enable();
+          map.scrollWheelZoom.enable();
+        }, 100);
+      });
+    }
+
+    return button;
+  },
+});
+
+const customControl = new CustomControl();
+customControl.addTo(map);
