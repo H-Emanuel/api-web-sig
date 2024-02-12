@@ -40,8 +40,6 @@
 body {
   color: ghostwhite;
   font-family: 'ABeeZee', sans-serif;
-
-
   margin: 0;
   padding: 0;
   display: flex;
@@ -66,67 +64,51 @@ iframe {
 select,
 div {
   font-family: 'ABeeZee', sans-serif;
-
-
-}
-
-button {
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-inline: 5px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #45a049;
 }
 
 h2 {
-  color: #333;
   margin-block: 5px;
 }
 
 label {
   display: block;
   margin-top: 5px;
-  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: small;
 }
 
-input,
-select {
-  padding: 10px;
-
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+input, select {
+  color: #fff;
   width: -webkit-fill-available;
-  font-family: 'ABeeZee', sans-serif;
-
-
-}
-
-
-/* Estilos para el botón de submit */
-
-input[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  margin-top: 5px;
+  padding: 8px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+  background-color: #383d58;
   border: none;
   border-radius: 4px;
+  font-family: 'ABeeZee', sans-serif;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 1.35);
+}
+
+/* Estilos para el botón de submit */
+input[type="submit"] {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: ghostwhite;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
   font-size: larger;
+  font-weight: bold;
   transition: background-color 0.3s;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 1.35);
+  margin-top: 10px;
 }
 
 input[type="submit"]:hover {
   background-color: #69d46c;
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px #4CAF50;
 }
 
 /* Estilos para el contenedor del mapa */
@@ -170,7 +152,6 @@ input[type="submit"]:hover {
   box-shadow: 0px 0px 5px 5px #a9dbed;
 }
 
-
 /* Estilos para el título del mapa */
 
 #map-title {
@@ -185,8 +166,7 @@ input[type="submit"]:hover {
   grid-auto-columns: 1fr;
   grid-auto-rows: 1fr;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 10px 10px;
+  grid-template-rows: 1fr;  
   grid-template-areas:
     ". .";
 }
@@ -204,99 +184,99 @@ input[type="submit"]:hover {
 
 /* Estilos para los botones de acción */
 
-.btn-info-dark {
+.btn-black {
   padding: 8px;
   background-color: #16233E;
   color: #fff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  margin-inline: 5px;
+
   transition: background-color 0.3s;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
 }
 
-.btn-info-dark:hover {
+.btn-black:hover {
   background-color: #383d58;
   transition: box-shadow 0.5s;
   box-shadow: 0px 0px 5px 5px #16233E;
 
 }
 
-.btn-info {
+#show-tipology-percentages-button {
+  height: 100%;
+}
+
+.btn-yellow {
   padding: 8px;
   background-color: #F7EA53;
   color: #16233E;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  margin-inline: 5px;
   transition: background-color 0.3s;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
 }
 
-.btn-info:hover {
+.btn-yellow:hover {
   background-color: #f9ef82;
   transition: box-shadow 0.5s;
   box-shadow: 0px 0px 5px 5px #F7EA53;
 
 }
 
-.btn-show-polygon {
+.btn-cyan {
   padding: 8px;
   background-color: #4BBFE0;
   color: #fff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  margin-inline: 5px;
+
   transition: background-color 0.3s;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
 }
 
-.btn-show-polygon:hover {
+.btn-cyan:hover {
   background-color: #84cee6;
   transition: box-shadow 0.5s;
-  box-shadow: 0px 0px 5px 5px #4BBFE0;
+  box-shadow: 0px 0px 5px 5px #4BBFE0 !important;
 }
 
-.btn-no-show-polygon {
+.btn-red {
   padding: 8px;
   background-color: #E73C45;
   color: #fff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
+  margin-inline: 5px;
   transition: background-color 0.3s;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
 }
 
-.btn-no-show-polygon:hover {
+.btn-red:hover {
   background-color: #ed6c65;
   transition: box-shadow 0.5s;
-  box-shadow: 0px 0px 5px 5px #E73C45;
+  box-shadow: 0px 0px 5px 5px #E73C45 !important;
 }
 
 
 #create-location-button {
-  padding: 8px;
-  background-color: #4BBFE0;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  margin-inline: 0px;
   margin-top: 10px;
   box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 1.35);
-}
-
-
-#create-location-button:hover {
-  /* background-color: #84cee6; */
-  transition: box-shadow 0.5s;
-  box-shadow: 0px 0px 5px 5px #4BBFE0;
 }
 
 #div-button {
@@ -401,9 +381,27 @@ input[type="submit"]:hover {
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: #fefbe5 !important;
-  color: #333;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+  background: #606078 !important;
+  color: ghostwhite !important;
+  border: 2px solid #383d58;
+  padding: 15px;
+}
+
+.leaflet-popup-content {
+  margin: 5px 0px 5px 0px;  
+}
+
+.leaflet-popup-tip {
+  padding: 0px !important;
+}
+
+.leaflet-popup-tip-container {
+  margin-top: -2px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: ghostwhite !important;
+
 }
 
 #create-form-container {
@@ -412,8 +410,8 @@ input[type="submit"]:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 15px;
-  background-color: #e5f4fa;
-  border: 1px solid #a9dbed;
+  background-color: #606078;
+  border: 2px solid #383d58;
   border-radius: 8px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
   max-width: 300px;
@@ -422,49 +420,12 @@ input[type="submit"]:hover {
 
 #create-form-container h2 {
   font-size: larger;
-  color: #333;
   margin-bottom: 5px;
 }
-
-#create-form-container label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-  font-size: small;
-}
-
-#create-form-container input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 5px;
-  box-sizing: border-box;
-  border: 1px solid #a9dbed;
-  border-radius: 4px;
-}
-
-#create-form-container select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 5px;
-  box-sizing: border-box;
-  border: 1px solid #a9dbed;
-  border-radius: 4px;
-}
-
 
 #create-form-container input[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px;
   border: none;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-#create-form-container input[type="submit"]:hover {
-  background-color: #69d46c;
+  margin-top: 5px;
 }
 
 #create-form-container input[type="submit"]:focus {
@@ -488,7 +449,14 @@ input[type="submit"]:hover {
 
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
-  border: 2px solid #4BBFE0 !important;
+  border: 2px solid #606078 !important;
+}
+
+.leaflet-touch .leaflet-control-layers:hover,
+.leaflet-touch .leaflet-bar:hover {
+  border: 2px solid #606078 !important;
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 2.5px #F7EA53 !important;
 
 }
 
@@ -568,6 +536,8 @@ input[type="submit"]:hover {
 #map-container-header select {
   width: min-content;
   padding: 10px;
+  margin-inline: 5px;
+  margin-bottom: 0px;
   font-size: 16px;
   border: 1px;
   border-radius: 5px;
@@ -580,5 +550,5 @@ input[type="submit"]:hover {
 
 #map-container-header select:hover {
   transition: box-shadow 0.5s;
-  box-shadow: 0px 0px 5px 5px #a9dbed;
+  box-shadow: 0px 0px 5px 5px #16233E;
 }

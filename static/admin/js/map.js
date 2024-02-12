@@ -204,18 +204,12 @@ function showPolygon() {
   isPolygonVisible = !isPolygonVisible;
 
   // Establecer el botón adecuado y su estilo según la visibilidad del polígono
-  const showPolygonButton = document.getElementById('show-polygon-button');
+  const showPolygonButton = document.getElementById('show-polygon-button'); 
 
   if (isPolygonVisible) {
-
-    showPolygonButton.classList.remove('btn-show-polygon');
-    showPolygonButton.classList.add('btn-no-show-polygon');
-  } else {
-
-    showPolygonButton.classList.remove('btn-no-show-polygon');
-    showPolygonButton.classList.add('btn-show-polygon');
-  }
-  if (isPolygonVisible) {
+    // Establecer el estilo del botón cuando el polígono está visible    
+    showPolygonButton.classList.remove('btn-cyan');
+    showPolygonButton.classList.add('btn-red');
     // Definir la proyección UTM actual (ajustar según sea necesario)
     const utmProjection = '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs';
 
@@ -302,7 +296,9 @@ function showPolygon() {
       })
       .catch((error) => console.error('Error al cargar el polígono desde la API:', error));
   } else {
-
+    // Establecer el estilo del botón cuando el polígono está oculto     
+    showPolygonButton.classList.remove('btn-red');
+    showPolygonButton.classList.add('btn-cyan');
     console.log('Polígono oculto.');
   }
 }
@@ -419,7 +415,7 @@ map.on('click', function (e) {
   // Agregar un popup al marcador con el botón "Crear Nueva Ubicación"
   newMarker.bindPopup(`
   <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
-    <button id="create-location-button">Crear Nueva Ubicación</button>
+    <button id="create-location-button" class="btn-cyan">Crear Nueva Ubicación</button>
   `);
 
   // Agregar un evento de clic al botón "Crear Nueva Ubicación" dentro del popup
@@ -608,7 +604,7 @@ const CustomControl = L.Control.extend({
   onAdd: function (map) {
     const initialMode = mapContainer.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
 
-    const button = L.DomUtil.create('button', `custom-control-button ${initialMode === 'dark_mode' ? 'btn-info-dark' : 'btn-info'}`);
+    const button = L.DomUtil.create('button', `custom-control-button ${initialMode === 'dark_mode' ? 'btn-black' : 'btn-yellow'}`);
     button.innerHTML = `<span class="material-symbols-outlined">${initialMode}</span>`;
 
     // Agregar un manejador de eventos clic al botón si el elemento se encuentra
@@ -622,8 +618,8 @@ const CustomControl = L.Control.extend({
         map.scrollWheelZoom.disable();
 
         mapContainer.classList.toggle('dark-mode');
-        button.classList.toggle('btn-info-dark');
-        button.classList.toggle('btn-info');
+        button.classList.toggle('btn-black');
+        button.classList.toggle('btn-yellow');
 
         const newMode = mapContainer.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
         button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
