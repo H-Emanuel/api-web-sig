@@ -1,0 +1,22 @@
+#tipology-percentages-info {
+    margin-top: 20px;
+}
+
+/* Estilos para la lista de información de tipologías */
+#tipology-percentages-info ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: start;
+    gap: 10px;
+    margin: 0;
+}
+
+#tipology-percentages-info ul li {
+    display: flex;
+    align-items: center;
+    gap: inherit;
+    margin-right: 20px;
+    font-size: 16px;
+    white-space: nowrap;
+}

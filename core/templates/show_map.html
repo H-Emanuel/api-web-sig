@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'admin/css/styles.css' %}" />
+    {% comment %} <link rel="stylesheet" href="{% static 'admin/css/dark_mode.css' %}" /> {% endcomment %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +20,7 @@
     <div id="map-container">
       <div id="map-container-header">
         <div id="location-selector">
-          <select id="locations" class="custom-select"></select>
+          <select id="locations"></select>
           <button id="show-location-button" class="btn-yellow"><span class="material-symbols-outlined">location_searching</span></button>
         </div>
         <label id="map-title">Valparaíso - Chile</label>
@@ -28,9 +29,10 @@
           <div id="button">
             <button id="show-tipology-percentages-button" class="btn-yellow">Información de Tipología</button>
             <button id="show-polygon-button" class="btn-cyan"><span class="material-symbols-outlined">hexagon</span></button>
+            <button id="light-mode-btn" class="btn-yellow"><span class="material-symbols-outlined">light_mode</span></button>
           </div>
           <div id="filter">
-            <select id="tipology-filter" class="custom-select">
+            <select id="tipology-filter" >
               <option value="">Todas Las Ubicaciones</option>
               <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
               <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
@@ -48,9 +50,9 @@
       </div>
       <div id="map"></div>
       <div id="tipology-percentages-info"></div>
-    </div>
-
-    {% comment %} <script src="{% static 'admin/js/crud.js' %}"></script> {% endcomment %}
-    <script src="{% static 'admin/js/map.js' %}"></script>
+    </div>    
+    <script src="{% static 'admin/js/map.js' %}"></script>    
+    <script src="{% static 'admin/js/crud.js' %}"></script>
+    <script src="{% static 'admin/js/style.js' %}"></script>
   </body>
 </html>

@@ -1,0 +1,15 @@
+/* Estilos para el contenido de los popups de Leaflet */
+.leaflet-popup-content-wrapper a {
+    display: block;
+    margin-top: 8px;
+    padding: 4px;
+    background-color: var(--red-100);
+    color: white !important;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Continúa con los estilos para los popups... */
+  

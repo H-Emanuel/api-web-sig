@@ -1,0 +1,13 @@
+
+/* Estilo para el mapa oscuro */
+.dark-mode .leaflet-layer,
+.dark-mode .leaflet-control-zoom-in,
+.dark-mode .leaflet-control-zoom-out,
+.dark-mode .leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+#map:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 0px 5px 5px var(--cyan-60);
+}
