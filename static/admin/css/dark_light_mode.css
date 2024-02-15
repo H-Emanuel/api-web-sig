@@ -1,11 +1,3 @@
-/* Estilo para el mapa oscuro */
-.dark-mode .leaflet-layer,
-.dark-mode .leaflet-control-zoom-in,
-.dark-mode .leaflet-control-zoom-out,
-.dark-mode .leaflet-control-attribution {
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
-}
-
 #map:hover {
     transition: box-shadow 0.5s;
     box-shadow: 0px 0px 5px 5px var(--cyan-60);
@@ -16,27 +8,77 @@
 
 .body-light {
     color: var(--black-100);
-    font-family: 'ABeeZee', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: ghostwhite;
+    background-color: var(--black-40);
 }
 
-.map-container-light {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    border: 2.5px solid var(--black-20) !important;
-    border-radius: 10px;
-    box-sizing: border-box;
-    box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
-    background-color: var(--black-20) !important;
-    width: 95%;
-    height: 90%;
+.body-light #map-container {
+    border: 2.5px solid var(--black-20);
+    background-color: var(--black-20);
 }
+
+.body-light #map-container select {
+    background-color: var(--black-40);
+    color: var(--black-00);
+}
+
+.body-light #map-container select:hover {
+    box-shadow: 0px 0px 5px 5px var(--black-00);
+}
+
+.body-light input,
+.body-light select {
+    color: var(--black-00);
+    background-color: var(--black-40);
+}
+
+.body-light #create-form-container {
+    background-color: var(--black-20);
+    border: 2px solid var(--black-40);
+
+}
+
+.body-light .leaflet-popup-content-wrapper,
+.body-light .leaflet-popup-tip {
+    background: var(--black-20) !important;
+    color: var(--black-100) !important;
+    border: 2px solid var(--black-40);
+}
+
+.body-light #light-mode-btn {
+    background-color: var(--black-100);
+    color: var(--black-00);
+}
+
+.body-light #light-mode-btn:hover {
+    background-color: var(--black-80);
+    box-shadow: 0px 0px 5px 5px var(--black-100);
+}
+
+/* .body-light {
+
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out,
+    .leaflet-control-attribution {
+        filter: none;
+    }
+} */
+
+.body-dark {
+
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out,
+    .leaflet-control-attribution {
+        filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+
+    }
+}
+
+/* Estilo para el mapa oscuro */
+/* body .leaflet-layer,
+body .leaflet-control-zoom-in,
+body .leaflet-control-zoom-out,
+body .leaflet-control-attribution {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+} */

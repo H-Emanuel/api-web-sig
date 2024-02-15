@@ -48,7 +48,7 @@ const mapContainer = document.getElementById('map-container');
 const toggleModeButton = document.getElementById('toggle-mode-btn');
 
 // Activa el modo oscuro al cargar la página
-mapContainer.classList.add('dark-mode');
+mapContainer.classList.add('body-dark');
 
 // Crea el control personalizado con el modo oscuro
 const initialMode = 'light_mode';
@@ -61,12 +61,12 @@ if (button) {
         event.stopPropagation();
 
         // Toggle dark mode
-        mapContainer.classList.toggle('dark-mode');
+        mapContainer.classList.toggle('body-dark');
         button.classList.toggle('btn-black');
         button.classList.toggle('btn-yellow');
 
-        const newMode = mapContainer.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
-        button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
+        const newMode = mapContainer.classList.contains('body-dark') ? 'light_mode' : 'dark_mode';
+        button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;        
     });
 }
 
@@ -90,31 +90,20 @@ function togglePageMode() {
 
     if (isLightMode) {
         // Cambiar a modo normal
+        //document.body.style.backgroundColor = ''; // Restaura el color de fondo predeterminado
         document.body.classList.remove('body-light'); // Cambia el color de fondo de la página a blanco
+        mapContainer.classList.add('body-dark');
 
-        document.body.style.backgroundColor = ''; // Restaura el color de fondo predeterminado
         isLightMode = false;
-
-        // Cambia las clases del botón
-        lightModeButton.classList.remove('btn-black');
-        lightModeButton.classList.add('btn-yellow');
-        mapContainer.classList.add('dark-mode');
-        mapContainer.classList.remove('map-container-light');
-        
-
         lightModeButton.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
     } else {
         // Cambiar a modo claro
         document.body.classList.add('body-light'); // Cambia el color de fondo de la página a blanco
+        mapContainer.classList.remove('body-dark');
 
+        lightModeButton.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
         isLightMode = true;
 
-        // Cambia las clases del botón
-        lightModeButton.classList.remove('btn-yellow');
-        lightModeButton.classList.add('btn-black');
-        mapContainer.classList.remove('dark-mode');
-        mapContainer.classList.add('map-container-light');
-        lightModeButton.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
     }
 }
 
