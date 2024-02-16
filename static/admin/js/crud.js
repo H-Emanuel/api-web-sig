@@ -1,8 +1,10 @@
 // Funciones CRUD
 // Agregar un evento de clic al mapa para permitir que los usuarios coloquen un marcador
+let latitude = 0;
+let longitude = 0;
 map.on('click', function (e) {
-  const latitude = e.latlng.lat;
-  const longitude = e.latlng.lng;
+  latitude = e.latlng.lat;
+  longitude = e.latlng.lng;
 
   // Eliminar cualquier marcador existente
   markerGroup.clearLayers();
@@ -12,18 +14,33 @@ map.on('click', function (e) {
     .addTo(markerGroup);
 
   // Agregar un popup al marcador con el botón "Crear Nueva Ubicación"
+  // Agregar un popup al marcador con el botón "Crear Nueva Ubicación"
   newMarker.bindPopup(`
   <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
-    <button id="create-location-button" class="btn-cyan">Crear Nueva Ubicación</button>
+    
   `);
+  
+  // newMarker.bindPopup(`
+  // <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
+  //   <button id="create-location-button" class="btn-cyan">Crear Nueva Ubicación</button>
+  // `);
+  // // Agregar un evento de clic al botón "Crear Nueva Ubicación" dentro del popup
+  // newMarker.on('popupopen', function () {
+  //   document.querySelector('#create-location-button').addEventListener('click', function () {
+  //     // Llamar a openCreateDialog con las coordenadas
+  //     if (latitude !== 0 && longitude !== 0) {
 
-  // Agregar un evento de clic al botón "Crear Nueva Ubicación" dentro del popup
-  newMarker.on('popupopen', function () {
-    document.querySelector('#create-location-button').addEventListener('click', function () {
-      // Llamar a openCreateDialog con las coordenadas
-      openCreateDialog(latitude, longitude);
-    });
-  });
+  //       openCreateDialog(latitude, longitude);
+  //       markerGroup.clearLayers();
+
+  //       latitude = 0;
+  //       longitude = 0;
+  //     } else {
+  //       window.alert(`Error: error`);
+
+  //     }
+  //   });
+  // });
 
   // Enviar las coordenadas al servidor o realizar otras operaciones aquí
   console.log('Coordenadas seleccionadas: ', latitude, longitude);

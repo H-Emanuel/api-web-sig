@@ -60,6 +60,19 @@ function initializeMap() {
     //className: 'map-tiles'
 
   }).addTo(map);
+  
+  document.querySelector('#create-location-button-outMap').addEventListener('click', function () {
+    // Llamar a openCreateDialog con las coordenadas
+    if (latitude !== 0 && longitude !== 0) {
+      openCreateDialog(latitude, longitude);
+      markerGroup.clearLayers();
+
+      latitude = 0;
+      longitude = 0;
+    } else {
+      window.alert(`Error: error`);
+    }
+  });
   return map;
 }
 

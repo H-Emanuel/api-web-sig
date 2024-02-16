@@ -46,6 +46,7 @@ const icons = {
 // Obtén el contenedor del mapa y el botón de alternancia de modo
 const mapContainer = document.getElementById('map-container');
 const toggleModeButton = document.getElementById('toggle-mode-btn');
+//document.body.classList.contains('body-light'); // Cambia el color de fondo de la página a blanco
 
 // Activa el modo oscuro al cargar la página
 mapContainer.classList.add('body-dark');
@@ -65,10 +66,13 @@ if (button) {
         button.classList.toggle('btn-black');
         button.classList.toggle('btn-yellow');
 
+
         const newMode = mapContainer.classList.contains('body-dark') ? 'light_mode' : 'dark_mode';
-        button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;        
+        button.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
     });
 }
+
+
 
 // Agrega el control personalizado al mapa
 const customControl = L.Control.extend({
@@ -96,15 +100,24 @@ function togglePageMode() {
 
         isLightMode = false;
         lightModeButton.innerHTML = '<span class="material-symbols-outlined">light_mode</span>';
+        button.innerHTML = `<span class="material-symbols-outlined">light_mode</span>`;
+
     } else {
         // Cambiar a modo claro
         document.body.classList.add('body-light'); // Cambia el color de fondo de la página a blanco
         mapContainer.classList.remove('body-dark');
+        button.innerHTML = `<span class="material-symbols-outlined">dark_mode</span>`;
+        
+        
 
         lightModeButton.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
         isLightMode = true;
 
+
+
     }
+
+
 }
 
 // Asociar la función al botón de modo claro

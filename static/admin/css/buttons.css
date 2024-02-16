@@ -51,7 +51,7 @@
 .btn-cyan {
     padding: 8px;
     background-color: var(--cyan-100);
-    color: #fff;
+    color: var(--black-00);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -117,7 +117,7 @@
 .edit-btn,
 .delete-btn {
     background-color: var(--cyan-100);
-    color: white;
+    color: var(--black-00);
     border: none;
     border-radius: 5px;
     padding: 5px;
@@ -138,4 +138,25 @@
 
 .delete-btn:hover {
     background-color: var(--red-80);
+}
+
+.leaflet-popup-content button.edit-btn {
+    background-color: var(--cyan-100) !important;
+    color: var(--black-00) !important;
+}
+
+.leaflet-popup-content button.edit-btn:hover {
+    box-shadow: none !important;
+    background-color: var(--cyan-80) !important;
+}
+
+.leaflet-popup-content button.delete-btn {
+    background-color: var(--red-100) !important;
+    color: var(--black-00) !important;
+}
+
+.leaflet-popup-content button.delete-btn:hover {
+    background-color: var(--red-80) !important;
+    box-shadow: none !important;
+
 }
