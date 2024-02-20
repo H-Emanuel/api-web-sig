@@ -19,7 +19,7 @@ map.on('click', function (e) {
   <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
     
   `);
-  
+
   // newMarker.bindPopup(`
   // <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
   //   <button id="create-location-button" class="btn-cyan">Crear Nueva Ubicación</button>
@@ -292,6 +292,14 @@ function showTipologyInfo() {
 
       // Agregar la lista de información al contenedor
       tipologyInfoContainer.appendChild(infoList);
+      // Ahora que todas las imágenes se han creado y adjuntado al DOM, podemos agregar los eventos de clic
+      const tipologyImages = tipologyInfoContainer.querySelectorAll('img');
+      tipologyImages.forEach((image) => {
+        image.addEventListener('click', function () {
+          // Alternar la clase 'selected' al hacer clic en la imagen
+          this.classList.toggle('selected');
+        });
+      });
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
 

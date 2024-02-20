@@ -84,3 +84,7 @@ input[type="submit"]:hover {
         'opsz' 24;
 }
 
+.selected {
+    border: 2px solid red;
+  }
+  

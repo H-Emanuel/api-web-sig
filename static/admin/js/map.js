@@ -23,7 +23,7 @@ const showPolygonButton = document.getElementById('show-polygon-button');
 const createLocationButton = document.getElementById('create-location-button');
 // Asignar la función al evento de clic del botón
 showLocationButton.addEventListener('click', showSelectedLocation);
-showAllLocationsButton.addEventListener('click', showAllLocations);
+// showAllLocationsButton.addEventListener('click', showAllLocations);
 //createLocationButton.addEventListener('click', openCreateDialog);
 // showPolygonButton.addEventListener('click', showPolygon);
 showPolygonButton.addEventListener('click', () => {
@@ -110,22 +110,27 @@ function showSelectedLocation() {
     .catch((error) => console.error('Error al cargar los detalles de la ubicación desde la API:', error));
 }
 
-// Función para mostrar todas las ubicaciones en el mapa
+// Asigna la función al evento de clic del botón de mostrar todas las ubicaciones
+showAllLocationsButton.addEventListener('click', showAllLocations);
+
+// Función para mostrar todas las ubicaciones según las tipologías seleccionadas
 function showAllLocations() {
   // Limpiar marcadores
   markerGroup.clearLayers();
 
-  // Obtener el valor seleccionado del filtro de tipologías
-  const selectedTipology = document.getElementById('tipology-filter').value;
+  // Obtener las imágenes seleccionadas
+  const selectedImages = document.querySelectorAll('#tipology-percentages-info img.selected');
+  // Obtener las tipologías seleccionadas a partir de las imágenes seleccionadas
+  const selectedTipologies = Array.from(selectedImages).map(image => image.alt);
 
   // Solicitud para obtener datos de la API
   fetch(`${baseUrl}/api/equipamientos/`)
     .then((response) => response.json())
     .then((responseData) => {
       // Filtrar ubicaciones por tipología si se selecciona una
-      const filteredLocations = selectedTipology
-        ? responseData.filter((location) => location.tipologia === selectedTipology)
-        : responseData;
+      const filteredLocations = selectedTipologies.includes('all')
+        ? responseData
+        : responseData.filter((location) => selectedTipologies.includes(location.tipologia));
 
       // Iterar sobre las ubicaciones filtradas y agregar un marcador
       filteredLocations.forEach((location) => {
@@ -153,6 +158,8 @@ function showAllLocations() {
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
 }
+
+
 
 function showPolygon() {
   // Limpiar todas las capas de polígonos existentes en el mapa

@@ -17,8 +17,6 @@
     <title>Show Map</title>
   </head>
   <body>
-    <button id="light-mode-btn" class="btn-yellow"><span class="material-symbols-outlined">light_mode</span></button>
-
     <div id="map-container">
       <div id="map-container-header">
         <div id="location-selector">
@@ -26,35 +24,23 @@
           <button id="show-location-button" class="btn-yellow"><span class="material-symbols-outlined">location_searching</span></button>
         </div>
         <label id="map-title">Valparaíso - Chile</label>
-
         <div id="div-button">
           <div id="button">
-            <button id="show-tipology-percentages-button" class="btn-yellow">Información de Tipología</button>
-            <button id="show-polygon-button" class="btn-cyan"><span class="material-symbols-outlined">hexagon</span></button>
-            <button id="create-location-button-outMap" class="btn-cyan">Crear Nueva Ubicación</button>
+            <button id="light-mode-btn" class="btn-yellow"><span class="material-symbols-outlined">light_mode</span></button>
 
+            <button id="show-tipology-percentages-button" class="btn-yellow">Información de Tipología</button>
+            <button id="create-location-button-outMap" class="btn-cyan">Nueva Ubicación</button>
           </div>
           <div id="filter">
-            <select id="tipology-filter" >
-              <option value="">Todas Las Ubicaciones</option>
-              <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
-              <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
-              <option value="EDUC ESPECIAL">EDUC ESPECIAL</option>
-              <option value="EDUC MEDIA">EDUC MEDIA</option>
-              <option value="EDUC PRE Y BASICA">EDUC PRE Y BASICA</option>
-              <option value="EDUC SUPERIOR">EDUC SUPERIOR</option>
-              <option value="EDUC TECNICA">EDUC TECNICA</option>
-              <option value="JARDIN INFANTIL">JARDIN INFANTIL</option>
-              <!-- Agrega más opciones según tus categorías -->
-            </select>
+            <button id="show-polygon-button" class="btn-cyan"><span class="material-symbols-outlined">hexagon</span></button>
             <button id="show-all-locations-button" class="btn-yellow"><span class="material-symbols-outlined">filter_alt</span></button>
           </div>
         </div>
       </div>
       <div id="map"></div>
       <div id="tipology-percentages-info"></div>
-    </div>    
-    <script src="{% static 'admin/js/map.js' %}"></script>    
+    </div>
+    <script src="{% static 'admin/js/map.js' %}"></script>
     <script src="{% static 'admin/js/crud.js' %}"></script>
     <script src="{% static 'admin/js/style.js' %}"></script>
   </body>
