@@ -10,11 +10,11 @@ const iconOptions = {
 const icons = {
     'CENTRO EDUCATIVO': L.icon({
         ...iconOptions,
-        iconUrl: `${baseUrlMarker}/centro_educativo_icon.png`,
+        iconUrl: `${baseUrlMarker}/centro_educativo_icon.svg`,
     }),
     'EDUC BASICA Y MEDIA': L.icon({
         ...iconOptions,
-        iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.png`,
+        iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.svg`,
     }),
     'EDUC ESPECIAL': L.icon({
         ...iconOptions,

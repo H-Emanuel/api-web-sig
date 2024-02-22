@@ -39,7 +39,7 @@ label {
 
 input,
 select {
-    color: #fff;
+    color: var(--black-00);
     width: -webkit-fill-available;
     padding: 8px;
     margin-bottom: 5px;
@@ -84,7 +84,22 @@ input[type="submit"]:hover {
         'opsz' 24;
 }
 
+.selected path {
+    stroke: var(--cyan-100);
+    fill: none;    
+}
+
 .selected {
-    border: 2px solid red;
-  }
-  
+    filter: drop-shadow(0 0 6px var(--cyan-100)); /* Añadir sombra roja */    
+    transition: 1s; /* Aplicar transición al cambiar propiedades */
+}
+
+.body-light .selected {
+    filter: drop-shadow(0 0 6px var(--red-100)); /* Añadir sombra roja */    
+    transition: 1s; /* Aplicar transición al cambiar propiedades */
+}
+
+/* Aplicar transición al quitar la clase .selected */
+#tipology-percentages-info img {
+    transition: 1s;
+}

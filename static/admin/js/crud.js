@@ -14,35 +14,10 @@ map.on('click', function (e) {
     .addTo(markerGroup);
 
   // Agregar un popup al marcador con el botón "Crear Nueva Ubicación"
-  // Agregar un popup al marcador con el botón "Crear Nueva Ubicación"
   newMarker.bindPopup(`
   <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
     
   `);
-
-  // newMarker.bindPopup(`
-  // <strong>Ubicación seleccionada: </strong><br><div id="div-monospace">Lat : ${latitude}<br>Long: ${longitude}<br></div>
-  //   <button id="create-location-button" class="btn-cyan">Crear Nueva Ubicación</button>
-  // `);
-  // // Agregar un evento de clic al botón "Crear Nueva Ubicación" dentro del popup
-  // newMarker.on('popupopen', function () {
-  //   document.querySelector('#create-location-button').addEventListener('click', function () {
-  //     // Llamar a openCreateDialog con las coordenadas
-  //     if (latitude !== 0 && longitude !== 0) {
-
-  //       openCreateDialog(latitude, longitude);
-  //       markerGroup.clearLayers();
-
-  //       latitude = 0;
-  //       longitude = 0;
-  //     } else {
-  //       window.alert(`Error: error`);
-
-  //     }
-  //   });
-  // });
-
-  // Enviar las coordenadas al servidor o realizar otras operaciones aquí
   console.log('Coordenadas seleccionadas: ', latitude, longitude);
 });
 
@@ -135,6 +110,23 @@ function closeCreateDialog(event) {
     document.removeEventListener('mousedown', closeCreateDialog);
   }
 }
+function convertGeomToCoordinates(geom) {
+
+  // Extraer los bytes de latitud y longitud del dato geom
+  const lonHex = geom.substring(18, 34);  
+  const latHex = geom.substring(34, 50);
+
+  // Convertir las cadenas hexadecimales a bytes
+  const lonBytes = Uint8Array.from(lonHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+  const latBytes = Uint8Array.from(latHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+
+  // Convertir los bytes a números flotantes (longitude y latitude)
+  const lon = new Float64Array(lonBytes.buffer)[0];
+  const lat = new Float64Array(latBytes.buffer)[0];
+
+  return { lat, lon };
+}
+
 
 function convertToHexWKB(latitude, longitude) {
   // Convertir la latitud y la longitud a números flotantes
@@ -238,13 +230,15 @@ function initializeTipologyInfo() {
 
 // Función para mostrar la información sobre las tipologías
 function showTipologyInfo() {
-  const tipologyInfoContainer = document.getElementById('tipology-percentages-info');
+  let tipologyInfoContainer = document.getElementById('tipology-percentages-info');
 
   // Limpiar el contenido previo del contenedor
   tipologyInfoContainer.innerHTML = '';
 
   // Solicitud para obtener datos de la API
-  fetch(`${baseUrl}/api/equipamientos/`)
+  //fetch(`${baseUrl}/api/equipamientos/`)
+  fetch(`${baseUrl}/get_active_locations/`)
+
     .then((response) => response.json())
     .then((responseData) => {
       // Inicializar un objeto para contar las ubicaciones por tipología
@@ -298,7 +292,10 @@ function showTipologyInfo() {
         image.addEventListener('click', function () {
           // Alternar la clase 'selected' al hacer clic en la imagen
           this.classList.toggle('selected');
+          showAllLocations();
         });
+        image.classList.add('selected');
+        showAllLocations();
       });
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));

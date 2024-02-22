@@ -16,7 +16,7 @@ const locationSelector = document.getElementById('locations');
 // Obtener el botón por su ID
 const showLocationButton = document.getElementById('show-location-button');
 // Obtener el botón de mostrar todas las ubicaciones por su ID y asignar la función al evento de clic
-const showAllLocationsButton = document.getElementById('show-all-locations-button');
+//const showAllLocationsButton = document.getElementById('show-all-locations-button');
 // BOTÓN DE POLÍGONO
 const showPolygonButton = document.getElementById('show-polygon-button');
 // Asignar la función al evento de clic del botón de creación
@@ -28,14 +28,16 @@ showLocationButton.addEventListener('click', showSelectedLocation);
 // showPolygonButton.addEventListener('click', showPolygon);
 showPolygonButton.addEventListener('click', () => {
   showPolygon();
-  showPolygonButton.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 1.35)';
+  //showPolygonButton.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 1.35)';
 });
+
 // Solicitud para obtener datos de la API
 fetch(`${baseUrl}/get_active_locations/`)
   .then((response) => response.json())
   .then((responseData) => {
     // Filtrar las ubicaciones activas
     const activeLocations = responseData.filter(location => location.is_active);
+    //console.log(activeLocations);
 
     activeLocations.sort((a, b) => a.gid - b.gid); // Ordenar array según "gid"
 
@@ -60,7 +62,7 @@ function initializeMap() {
     //className: 'map-tiles'
 
   }).addTo(map);
-  
+
   document.querySelector('#create-location-button-outMap').addEventListener('click', function () {
     // Llamar a openCreateDialog con las coordenadas
     if (latitude !== 0 && longitude !== 0) {
@@ -111,7 +113,7 @@ function showSelectedLocation() {
 }
 
 // Asigna la función al evento de clic del botón de mostrar todas las ubicaciones
-showAllLocationsButton.addEventListener('click', showAllLocations);
+//showAllLocationsButton.addEventListener('click', showAllLocations);
 
 // Función para mostrar todas las ubicaciones según las tipologías seleccionadas
 function showAllLocations() {
@@ -124,23 +126,28 @@ function showAllLocations() {
   const selectedTipologies = Array.from(selectedImages).map(image => image.alt);
 
   // Solicitud para obtener datos de la API
-  fetch(`${baseUrl}/api/equipamientos/`)
+  fetch(`${baseUrl}/get_active_locations/`)
+    //fetch(`${baseUrl}/api/equipamientos/`)
     .then((response) => response.json())
     .then((responseData) => {
       // Filtrar ubicaciones por tipología si se selecciona una
       const filteredLocations = selectedTipologies.includes('all')
         ? responseData
         : responseData.filter((location) => selectedTipologies.includes(location.tipologia));
+      filteredLocations.sort((a, b) => a.gid - b.gid); // Ordenar array según "gid"
+
 
       // Iterar sobre las ubicaciones filtradas y agregar un marcador
       filteredLocations.forEach((location) => {
+
+        geom = location.geom
         // Obtener el ícono correspondiente según la tipología
         const icon = icons[location.tipologia];
 
         // Verificar si el ícono está definido antes de crear el marcador
         if (icon) {
           // Crear el marcador con el ícono personalizado
-          const newMarker = L.marker([location.y_coord, location.x_coord], { icon })
+          const newMarker = L.marker(convertGeomToCoordinates(geom), { icon })
             .bindPopup(`
               <strong>${location.nombre}</strong><br>
               ${location.tipologia}<br>
@@ -157,9 +164,8 @@ function showAllLocations() {
       });
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
+
 }
-
-
 
 function showPolygon() {
   // Limpiar todas las capas de polígonos existentes en el mapa
@@ -269,4 +275,45 @@ function showPolygon() {
     showPolygonButton.classList.add('btn-cyan');
     console.log('Polígono oculto.');
   }
+}
+
+// Obtener el botón para seleccionar todas las imágenes
+const selectAllButton = document.getElementById('select-all-button');
+selectAllButton.addEventListener('click', selectAllImages);
+
+// Variable para rastrear el estado de la selección
+let isAllSelected = false;
+
+// Función para seleccionar o deseleccionar todas las imágenes automáticamente
+function selectAllImages() {
+  // Obtén todas las imágenes en el contenedor de información de tipologías
+  const tipologyImages = document.querySelectorAll('#tipology-percentages-info img');
+  const newMode = selectAllButton.classList.contains('selected') ? 'visibility' : 'visibility_off';
+  const initialMode = 'visibility';
+  selectAllButton.innerHTML = `<span class="material-symbols-outlined">${initialMode}</span>`;
+
+  // Verifica el estado actual de la selección
+  if (!isAllSelected) {
+    // Itera sobre todas las imágenes y añade la clase "selected"
+    tipologyImages.forEach((image) => {
+      image.classList.remove('selected');
+      image.classList.add('non-selected');
+
+      selectAllButton.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
+    });
+
+    isAllSelected = true; // Actualiza el estado de la selección
+  } else {
+    // Itera sobre todas las imágenes y elimina la clase "selected"
+    tipologyImages.forEach((image) => {
+      image.classList.add('selected');
+
+      //selectAllButton.innerHTML = `<span class="material-symbols-outlined">${newMode}</span>`;
+
+    });
+
+    isAllSelected = false; // Actualiza el estado de la selección
+  }
+  showAllLocations();
+
 }
