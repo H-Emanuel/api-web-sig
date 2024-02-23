@@ -1,7 +1,4 @@
-#map:hover {
-    transition: box-shadow 0.5s;
-    box-shadow: 0px 0px 5px 5px var(--cyan-60);
-}
+
 
 
 /* body light*/
@@ -22,7 +19,7 @@
 }
 
 .body-light #map-container select:hover {
-    box-shadow: 0px 0px 5px 5px var(--black-00);
+    box-shadow: 0px 0px 5px 5px var(--black-100);
 }
 
 .body-light input,

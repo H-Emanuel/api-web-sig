@@ -95,7 +95,7 @@ input[type="submit"]:hover {
 }
 
 .body-light .selected {
-    filter: drop-shadow(0 0 6px var(--red-100)); /* Añadir sombra roja */    
+    filter: drop-shadow(0 0 6px var(--black-100)); /* Añadir sombra roja */    
     transition: 1s; /* Aplicar transición al cambiar propiedades */
 }
 
