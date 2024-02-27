@@ -15,7 +15,7 @@ JavaScript
 
 Uso
 Clona el repositorio:
-git clone https://github.com/tu_usuario/tu_repositorio.git
+git clone https://github.com/Jaime-SC/api-web-sig.git
 
 Instala las dependencias:
 pip install -r requirements.txt
@@ -27,13 +27,4 @@ Inicia el servidor local:
 python manage.py runserver
 
 Accede a la aplicación desde tu navegador web:
-http://localhost:8000/
-
-Contribuciones
-Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, sigue estos pasos:
-
-Realiza un fork del repositorio.
-Crea una rama para tu función: git checkout -b feature/NuevaFuncion.
-Realiza tus cambios y haz commit: git commit -m 'Agrega nueva función'.
-Sube tus cambios a tu repositorio: git push origin feature/NuevaFuncion.
-Abre un pull request a la rama principal del repositorio original.
+http://127.0.0.1:8000/
