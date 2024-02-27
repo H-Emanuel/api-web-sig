@@ -11,11 +11,21 @@ class EquipamientoEducacion(models.Model):
     sum_sup_m2 = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     sum_sup_to = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     geom = models.TextField(blank=True, null=True)
-
-
+    is_active = models.BooleanField(default=True)  # Campo para el borrado lógico
+    
     class Meta:
         managed = False
         db_table = 'equipamiento_educacion'
+    
+    def update_data(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
+        self.save()
+        
+    def delete_location(self):
+        self.is_active = False
+        self.save()
+    
 
 class Limite_poligono(models.Model):
     gid = models.AutoField(primary_key=True)

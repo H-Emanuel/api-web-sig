@@ -1,0 +1,37 @@
+/* Definición de colores en Pantone */
+:root {
+    --red-100: #E73C45;
+    --red-80: #ed6c65;
+    --red-60: #f39589;
+    --red-40: #f7bcb0;
+    --red-20: #fcdfd8;
+  
+    --cyan-100: #4BBFE0;
+    --cyan-80: #84cee6;
+    --cyan-60: #a9dbed;
+    --cyan-40: #c9e8f4;
+    --cyan-20: #e5f4fa;
+  
+    --yellow-100: #F7EA53;
+    --yellow-80: #f9ef82;
+    --yellow-60: #fbed73;
+    --yellow-40: #fbf3a7;
+    --yellow-20: #fefbe5;
+  
+    --black-100: #16233E;
+    --black-80: #383d58;
+    --black-60: #606078;
+    --black-40: #8f8da0;
+    --black-20: #c4c2cd;
+    --black-00: #ebeaee;
+
+  }
+  
+  /* Definición de fuentes */
+  @font-face {
+    font-family: 'Helvetica Roman';
+    src: url('/static/admin/fonts/HelveticaRoman.ttf') format('truetype');
+    font-weight: bold;
+    font-style: initial;
+  }
+  

@@ -1,0 +1,63 @@
+/* Estilos para el contenido de los popups de Leaflet */
+.leaflet-popup-content-wrapper a {
+    display: block;
+    margin-top: 8px;
+    padding: 4px;
+    background-color: var(--red-100);
+    color: white !important;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.leaflet-popup-content-wrapper a:hover {
+    background-color: var(--red-100);
+}
+
+.leaflet-popup-content-wrapper form {
+    border: none;
+    box-shadow: none;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: var(--black-60) !important;
+    color: ghostwhite !important;
+    border: 2px solid var(--black-80);
+    padding: 15px;
+}
+
+.leaflet-popup-content {
+    margin: 5px 0px 5px 0px;
+}
+
+.leaflet-popup-tip {
+    padding: 0px !important;
+}
+
+.leaflet-popup-tip-container {
+    margin-top: -2px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    color: ghostwhite !important;
+}
+
+.leaflet-touch .leaflet-bar a:first-child,
+.leaflet-touch .leaflet-bar a:last-child {
+    background-color: var(--black-80);
+    color: ghostwhite;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: 2px solid var(--black-60) !important;
+}
+
+.leaflet-touch .leaflet-control-layers:hover,
+.leaflet-touch .leaflet-bar:hover {
+    border: 2px solid var(--black-60) !important;
+    transition: box-shadow 0.5s;
+    box-shadow: 0px 0px 5px 2.5px var(--yellow-100) !important;
+}
