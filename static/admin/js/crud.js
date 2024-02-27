@@ -42,11 +42,13 @@ function deleteLocation(gid) {
 }
 
 function openEditDialog(gid) {
+
   // Obtener detalles de la ubicación para el gid especificado
   fetch(`${baseUrl}/api/equipamientos/${gid}/`)
     .then((response) => response.json())
     .then((location) => {
       const csrftoken = getCookie('csrftoken');
+
       // Crear el contenido del formulario
       const formContent = `
       <h2>Editar Ubicación</h2>
@@ -156,7 +158,8 @@ function openCreateDialog(latitude, longitude) {
     const csrftoken = getCookie('csrftoken');
     const formContent = `  
       <h2>Crear Nueva Ubicación</h2>
-      <form id="createForm" method="post" action="/create/">
+      <form id="createForm" method="post" action="/create/">{% csrf_token %}
+
         <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required /><br />
