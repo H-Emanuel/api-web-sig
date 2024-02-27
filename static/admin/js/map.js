@@ -1,4 +1,5 @@
-const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl = window.location.origin;
+
 //const baseUrl = 'https://a415-200-50-126-98.ngrok-free.app';
 
 // Configuración inicial del mapa y capas
