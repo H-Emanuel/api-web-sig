@@ -22,7 +22,7 @@ class EquipamientoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EquipamientoEducacion
-        fields = ['gid', 'nombre', 'tipologia', 'consultori', 'poblacion', 'x_coord', 'y_coord']
+        fields = ['gid', 'nombre', 'tipologia', 'consultori', 'poblacion', 'x_coord', 'y_coord','is_active']
 
 class limiteSerializer(serializers.ModelSerializer):
     geom = serializers.SerializerMethodField()  # Campo personalizado para la geometría formateada

@@ -1,4 +1,13 @@
-const baseUrl = 'http://127.0.0.1:8000';
+let baseUrl;
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    // Estás en un entorno local en Windows
+    baseUrl = 'http://127.0.0.1:8000'; // O cualquier otra URL local que necesites en Windows
+} else {
+    // Estás en producción o en otro entorno diferente a localhost
+    baseUrl = 'https://apisig.munivalpo.cl';
+}
+
+
 //const baseUrl = 'https://a415-200-50-126-98.ngrok-free.app';
 
 // Configuración inicial del mapa y capas
