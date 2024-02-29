@@ -99,7 +99,3 @@ input[type="submit"]:hover {
     transition: 1s; /* Aplicar transición al cambiar propiedades */
 }
 
-/* Aplicar transición al quitar la clase .selected */
-#tipology-percentages-info img {
-    transition: 1s;
-}

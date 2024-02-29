@@ -113,7 +113,7 @@ function closeCreateDialog(event) {
 function convertGeomToCoordinates(geom) {
 
   // Extraer los bytes de latitud y longitud del dato geom
-  const lonHex = geom.substring(18, 34);  
+  const lonHex = geom.substring(18, 34);
   const latHex = geom.substring(34, 50);
 
   // Convertir las cadenas hexadecimales a bytes
@@ -213,8 +213,10 @@ function openCreateDialog(latitude, longitude) {
 const showTipologyInfoButton = document.getElementById('show-tipology-percentages-button');
 
 // Asignar la función al evento de clic del botón
-showTipologyInfoButton.addEventListener('click', showTipologyInfo);
+showTipologyInfoButton.addEventListener('click', obtenerCantidadUbicacionesPorTipologia);
 
+// Variables para controlar el estado del interruptor
+//let showPercentages = false; // Inicialmente, mostrar números enteros
 // Variable de estado para alternar entre porcentajes y cantidades
 let showPercentages = true;
 // Función para inicializar la información sobre las tipologías
@@ -225,84 +227,167 @@ function initializeTipologyInfo() {
   tipologyInfoContainer.innerHTML = '';
 
   // Mostrar la información de las tipologías al cargar la página
-  showTipologyInfo();
+  obtenerCantidadUbicacionesPorTipologia();
 }
 
-// Función para mostrar la información sobre las tipologías
-function showTipologyInfo() {
-  let tipologyInfoContainer = document.getElementById('tipology-percentages-info');
+// Variable global para almacenar las tipologías seleccionadas
+let selectedTipologies = [];
 
-  // Limpiar el contenido previo del contenedor
-  tipologyInfoContainer.innerHTML = '';
+// Obtener el botón para mostrar porcentajes o números enteros
+const toggleButton = document.getElementById('show-tipology-percentages-button');
 
-  // Solicitud para obtener datos de la API
-  //fetch(`${baseUrl}/api/equipamientos/`)
+// Agregar un evento de clic al botón
+toggleButton.addEventListener('click', function () {
+  // Cambiar el estado del interruptor
+  showPercentages = !showPercentages;
+
+  // Llamar a la función para obtener los datos con el nuevo estado del interruptor
+  obtenerCantidadUbicacionesPorTipologia();
+});
+
+// Función para obtener la cantidad de ubicaciones por tipología
+function obtenerCantidadUbicacionesPorTipologia() {
+  // Elemento HTML donde se mostrarán los resultados
+  const resultadosContainer = document.getElementById('tipology-percentages-info');
+
+  // Realizar la solicitud HTTP para obtener los datos de la base de datos
   fetch(`${baseUrl}/get_active_locations/`)
+    .then(response => response.json())
+    .then(data => {
+      // Objeto para almacenar la cantidad de ubicaciones por tipología
+      const cantidadPorTipologia = {};
 
-    .then((response) => response.json())
-    .then((responseData) => {
-      // Inicializar un objeto para contar las ubicaciones por tipología
-      const tipologyCounts = {
-        'CENTRO EDUCATIVO': 0,
-        'EDUC BASICA Y MEDIA': 0,
-        'EDUC ESPECIAL': 0,
-        'EDUC MEDIA': 0,
-        'EDUC PRE Y BASICA': 0,
-        'EDUC SUPERIOR': 0,
-        'EDUC TECNICA': 0,
-        'JARDIN INFANTIL': 0
-      };
-
-      // Contar las ubicaciones por tipología
-      responseData.forEach((location) => {
-        tipologyCounts[location.tipologia] += 1;
+      // Iterar sobre los datos recibidos de la base de datos
+      data.forEach(ubicacion => {
+        // Verificar si la tipología ya está registrada en el objeto
+        if (cantidadPorTipologia.hasOwnProperty(ubicacion.tipologia)) {
+          // Incrementar la cantidad de ubicaciones para esta tipología
+          cantidadPorTipologia[ubicacion.tipologia]++;
+        } else {
+          // Inicializar la cantidad de ubicaciones para esta tipología
+          cantidadPorTipologia[ubicacion.tipologia] = 1;
+        }
       });
 
-      // Calcular el total de ubicaciones
-      const totalLocations = responseData.length;
+      // Crear el contenido HTML para mostrar los resultados
+      let resultadosHTML = '';
+      for (const tipologia in cantidadPorTipologia) {
+        if (cantidadPorTipologia.hasOwnProperty(tipologia)) {
+          // Calcular el valor a mostrar según el estado del interruptor
+          const valor = showPercentages ? ((cantidadPorTipologia[tipologia] / data.length) * 100).toFixed(2) : cantidadPorTipologia[tipologia];
 
-      // Crear un elemento <ul> para mostrar la información
-      const infoList = document.createElement('ul');
+          // Obtener el ícono correspondiente a la tipología
+          const icono = icons[tipologia];
+          let iconoHTML = '';
 
-      // Calcular y agregar la información al elemento <ul>
-      for (const tipologia in tipologyCounts) {
-        if (tipologyCounts.hasOwnProperty(tipologia)) {
-          const count = tipologyCounts[tipologia];
+          // Verificar si existe un ícono para la tipología
+          if (icono) {
+            // Añadir el evento de clic a la imagen de la tipología y verificar si está seleccionada
+            const isSelected = selectedTipologies.includes(tipologia) ? 'selected' : '';
+            iconoHTML = `<img src="${icono.options.iconUrl}" alt="${tipologia}" class="${isSelected}" style="width: ${icono.options.iconSize[0]}px; height: ${icono.options.iconSize[1]}px;" onclick="toggleSelected(this)">`;
+          }
 
-          // Mostrar porcentajes o cantidades según el estado actual
-          const infoValue = showPercentages ? (count / totalLocations) * 100 : count;
-
-          const infoItem = document.createElement('li');
-          const icon = document.createElement('img');
-          icon.src = icons[tipologia].options.iconUrl; // Obtener la URL del icono de la tipología
-          icon.alt = tipologia; // Establecer el atributo alt del icono
-
-          infoItem.appendChild(icon); // Agregar el icono al elemento <li>
-          infoItem.innerHTML += `${tipologia}: ${infoValue.toFixed(showPercentages ? 2 : 0)} ${showPercentages ? '%' : 'ubicaciones'}`;
-
-          infoList.appendChild(infoItem);
+          resultadosHTML += `<p>${iconoHTML} ${tipologia} : ${valor}${showPercentages ? '%' : ' ubicaciones'}</p>`;
         }
       }
 
-      // Agregar la lista de información al contenedor
-      tipologyInfoContainer.appendChild(infoList);
-      // Ahora que todas las imágenes se han creado y adjuntado al DOM, podemos agregar los eventos de clic
-      const tipologyImages = tipologyInfoContainer.querySelectorAll('img');
-      tipologyImages.forEach((image) => {
-        image.addEventListener('click', function () {
-          // Alternar la clase 'selected' al hacer clic en la imagen
-          this.classList.toggle('selected');
-          showAllLocations();
-        });
-        image.classList.add('selected');
-        showAllLocations();
+      // Mostrar los resultados en el contenedor
+      resultadosContainer.innerHTML = resultadosHTML;
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos:', error);
+      // Mostrar un mensaje de error en el contenedor
+      resultadosContainer.innerHTML = '<p>Error al obtener los datos. Por favor, inténtalo de nuevo más tarde.</p>';
+    });
+}
+
+function toggleSelected(image) {
+  image.classList.toggle('selected');
+  updateSelectedTipologies();
+}
+
+function updateSelectedTipologies() {
+  // Reiniciar la lista de tipologías seleccionadas
+  selectedTipologies = [];
+
+  // Obtener las imágenes seleccionadas y agregar las tipologías correspondientes a la lista
+  const selectedImages = document.querySelectorAll('#tipology-percentages-info img.selected');
+  selectedImages.forEach(image => {
+    selectedTipologies.push(image.alt);
+  });
+
+  // Actualizar las ubicaciones en el mapa con las nuevas tipologías seleccionadas
+  showLocationsBySelectedTipology();
+}
+
+function showLocationsBySelectedTipology() {
+  // Limpiar marcadores
+  markerGroup.clearLayers();
+
+  // Solicitud para obtener datos de la API
+  fetch(`${baseUrl}/get_active_locations/`)
+    .then((response) => response.json())
+    .then((responseData) => {
+      // Filtrar ubicaciones por tipología si se selecciona una
+      const filteredLocations = selectedTipologies.includes('all')
+        ? responseData
+        : responseData.filter((location) => selectedTipologies.includes(location.tipologia));
+      filteredLocations.sort((a, b) => a.gid - b.gid); // Ordenar array según "gid"
+
+      // Iterar sobre las ubicaciones filtradas y agregar un marcador
+      filteredLocations.forEach((location) => {
+        const geom = location.geom;
+        // Obtener el ícono correspondiente según la tipología
+        const icon = icons[location.tipologia];
+
+        // Verificar si el ícono está definido antes de crear el marcador
+        if (icon) {
+          // Crear el marcador con el ícono personalizado
+          const newMarker = L.marker(convertGeomToCoordinates(geom), { icon })
+            .bindPopup(`
+              <strong>${location.nombre}</strong><br>
+              ${location.tipologia}<br>
+              Población: ${location.poblacion}<br>
+              <button class="edit-btn" onclick="openEditDialog(${location.gid})">Editar</button>
+              <button class="delete-btn" onclick="deleteLocation(${location.gid})">Eliminar</button>
+            `)
+            .openPopup();
+
+          markerGroup.addLayer(newMarker);
+        } else {
+          console.error('Ícono no definido para la tipología:', location.tipologia);
+        }
       });
     })
     .catch((error) => console.error('Error al cargar los datos desde la API:', error));
-
-  // Alternar el estado para la próxima vez
-  showPercentages = !showPercentages;
 }
+// Obtener el botón "Select All"
+const selectAllButton = document.getElementById('select-all-button');
+
+// Agregar un evento de clic al botón
+selectAllButton.addEventListener('click', function () {
+  // Obtener todas las imágenes de tipología
+  const tipologyImages = document.querySelectorAll('#tipology-percentages-info img');
+
+  // Iterar sobre las imágenes y alternar la clase "selected"
+  tipologyImages.forEach(image => {
+    image.classList.toggle('selected');
+  });
+
+  // Actualizar las tipologías seleccionadas y mostrar las ubicaciones en el mapa
+  updateSelectedTipologies();
+
+  // Obtener el icono dentro del botón
+  const iconSpan = selectAllButton.querySelector('span.material-symbols-outlined');
+
+  // Alternar entre los iconos de visibilidad
+  if (iconSpan.innerHTML === 'visibility') {
+    iconSpan.innerHTML = 'visibility_off';
+  } else {
+    iconSpan.innerHTML = 'visibility';
+  }
+});
+
 
 // Llamar a la función para inicializar la información sobre las tipologías al cargar la página
 initializeTipologyInfo();
