@@ -5,13 +5,18 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 
 @csrf_protect
-def home(request):
+def homePublic(request):
+    # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
+    locations = EquipamientoEducacion.objects.filter(is_active=True).order_by('gid')
+    #return render(request, 'presentacion.html')
+    return render(request, 'show_map_public.html', {'locations': locations})
+
+def homeComplete(request):
     # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
     locations = EquipamientoEducacion.objects.filter(is_active=True).order_by('gid')
     #return render(request, 'presentacion.html')
     return render(request, 'show_map.html', {'locations': locations})
 
-from django.http import JsonResponse
 
 @csrf_protect
 def get_active_locations(request):

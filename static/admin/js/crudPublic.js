@@ -22,92 +22,7 @@ map.on('click', function (e) {
 });
 
 
-// Función para eliminar una ubicación
-function deleteLocation(gid) {
-  const confirmationModal = document.getElementById('confirmationModal');
-  const confirmDelete = document.getElementById('confirmDelete');
-  const cancelDelete = document.getElementById('cancelDelete');
-  const deleteSuccessMessage = document.getElementById('delete-success-message');
 
-  confirmationModal.style.display = 'block';
-
-  confirmDelete.addEventListener('click', function () {
-    fetch(`${baseUrl}/delete/${gid}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken'),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Actualizar el contenido del mensaje de eliminación exitosa
-        deleteSuccessMessage.textContent = data.message;
-        deleteSuccessMessage.classList.remove('hidden');
-
-        // Ocultar el mensaje después de 3 segundos
-        setTimeout(() => {
-          deleteSuccessMessage.classList.add('hidden');
-        }, 2000);
-
-        // Recargar la página después de un cierto tiempo
-        setTimeout(() => {
-          location.reload();
-        }, 2500);
-      })
-      .catch((error) => console.error('Error al marcar la ubicación como eliminada:', error));
-  });
-
-  cancelDelete.addEventListener('click', function () {
-    confirmationModal.style.display = 'none';
-  });
-}
-
-
-
-function openEditDialog(gid) {
-  // Obtener detalles de la ubicación para el gid especificado
-  fetch(`${baseUrl}/api/equipamientos/${gid}/`)
-    .then((response) => response.json())
-    .then((location) => {
-      const csrftoken = getCookie('csrftoken');
-      // Crear el contenido del formulario
-      const formContent = `
-      <h2>Editar Ubicación</h2>
-        <form id="editForm" method="post" action="/edit/${gid}/">
-          <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">
-          <label for="nombre">Nombre:</label>
-          <input type="text" name="nombre" value="${location.nombre}" /><br />
-          <label for="tipologia">Tipología:</label>
-          <select name="tipologia" required>
-            <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
-            <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
-            <option value="EDUC ESPECIAL">EDUC ESPECIAL</option>
-            <option value="EDUC MEDIA">EDUC MEDIA</option>
-            <option value="EDUC PRE Y BASICA">EDUC PRE Y BASICA</option>
-            <option value="EDUC SUPERIOR">EDUC SUPERIOR</option>
-            <option value="EDUC TECNICA">EDUC TECNICA</option>
-            <option value="JARDIN INFANTIL">JARDIN INFANTIL</option>
-          </select><br />
-          <label for="nombre">Consultorio:</label>
-        <input type="text" name="consultori" value="${location.consultori}" /><br />
-          <input type="submit" value="Guardar cambios" />
-        </form>
-      `;
-      // Crear y abrir un popup personalizado con el formulario de edición
-      const editPopup = L.popup()
-        .setLatLng([location.y_coord, location.x_coord])
-        .setContent(formContent)
-        .openOn(map);
-
-      // Agregar un manejador de eventos para recargar las ubicaciones después de enviar el formulario
-      document.getElementById('editForm').addEventListener('submit', function () {
-        // Recargar las ubicaciones después de enviar el formulario
-
-      });
-    })
-    .catch((error) => console.error('Error al cargar los detalles de la ubicación desde la API:', error));
-}
 
 // Función para obtener el valor de una cookie por su nombre
 function getCookie(name) {
@@ -126,14 +41,7 @@ function getCookie(name) {
   return cookieValue;
 }
 
-function closeCreateDialog(event) {
-  const createContainer = document.getElementById('create-form-container');
-  if (createContainer && !createContainer.contains(event.target)) {
-    // Cerrar la ventana flotante solo si el clic ocurrió fuera del contenedor
-    document.body.removeChild(createContainer);
-    document.removeEventListener('mousedown', closeCreateDialog);
-  }
-}
+
 function convertGeomToCoordinates(geom) {
 
   // Extraer los bytes de latitud y longitud del dato geom
@@ -175,61 +83,6 @@ function convertToHexWKB(latitude, longitude) {
   return wkb.toUpperCase(); // Devolver la cadena en mayúsculas
 }
 
-function openCreateDialog(latitude, longitude) {
-  if (latitude !== undefined && longitude !== undefined) {
-    const csrftoken = getCookie('csrftoken');
-    const formContent = `  
-      <h2>Crear Nueva Ubicación</h2>
-      <form id="createForm" method="post" action="/create/">
-        <input type="hidden" name="csrfmiddlewaretoken" value="${csrftoken}">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required /><br />
-        <label for="tipologia">Tipología:</label>
-        <select name="tipologia" required>
-          <option value="CENTRO EDUCATIVO">CENTRO EDUCATIVO</option>
-          <option value="EDUC BASICA Y MEDIA">EDUC BASICA Y MEDIA</option>
-          <option value="EDUC ESPECIAL">EDUC ESPECIAL</option>
-          <option value="EDUC MEDIA">EDUC MEDIA</option>
-          <option value="EDUC PRE Y BASICA">EDUC PRE Y BASICA</option>
-          <option value="EDUC SUPERIOR">EDUC SUPERIOR</option>
-          <option value="EDUC TECNICA">EDUC TECNICA</option>
-          <option value="JARDIN INFANTIL">JARDIN INFANTIL</option>        
-        </select><br />
-        <label for="consultori">Consultorio:</label>
-        <input type="text" name="consultori" required /><br />
-        <label for="poblacion">Poblacion:</label>
-        <input type="number" name="poblacion" required /><br />
-        <label for="sum_sup_m2">Superficie (m²):</label>
-        <input type="number" step="0.01e20" name="sum_sup_m2" required /><br />
-        <label for="sum_sup_to">Superficie Total:</label>
-        <input type="number" step="0.01e20" name="sum_sup_to" required /><br />
-        <label for="geom">Geometría:</label>
-        <!-- Autocompletar el campo de geometría con las coordenadas -->
-        <input type="text" name="geom" value="${convertToHexWKB(latitude, longitude)}" required readonly /><br />
-        <input type="submit" value="Crear ubicación" />
-      </form>  
-    `;
-
-    const createContainer = document.createElement('div');
-    createContainer.id = 'create-form-container';
-    createContainer.innerHTML = formContent;
-
-    // Agregar el contenedor a la página
-    document.body.appendChild(createContainer);
-
-    // Ajustar el índice Z del contenedor
-    createContainer.style.zIndex = '1000';
-
-    // Cerrar la ventana flotante si se hace clic fuera de ella
-    document.addEventListener('mousedown', closeCreateDialog);
-
-    // Agregar un manejador de eventos para recargar las ubicaciones después de enviar el formulario
-    document.getElementById('createForm').addEventListener('submit', function () {
-      // Recargar las ubicaciones después de enviar el formulario
-
-    });
-  }
-}
 
 
 // Funciones de información tipológica
@@ -370,10 +223,7 @@ function showLocationsBySelectedTipology() {
           const newMarker = L.marker(convertGeomToCoordinates(geom), { icon })
             .bindPopup(`
               <strong>${location.nombre}</strong><br>
-              ${location.tipologia}<br>
-              
-              <button class="edit-btn" onclick="openEditDialog(${location.gid})">Editar</button>
-              <button class="delete-btn" onclick="deleteLocation(${location.gid})">Eliminar</button>
+              ${location.tipologia}<br>              
             `)
             .openPopup();
 
