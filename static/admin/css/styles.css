@@ -7,4 +7,5 @@
 @import url('dark_light_mode.css');
 @import url('leaflet.css');
 @import url('typology.css');
-
+@import url('responsive.css');
+@import url('alerts.css');

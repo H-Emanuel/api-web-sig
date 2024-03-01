@@ -1,13 +1,4 @@
-let baseUrl;
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    // Estás en un entorno local en Windows
-    baseUrl = 'http://127.0.0.1:8000'; // O cualquier otra URL local que necesites en Windows
-} else {
-    // Estás en producción o en otro entorno diferente a localhost
-    baseUrl = 'https://apisig.munivalpo.cl';
-}
-
-
+const baseUrl = 'http://127.0.0.1:8000';
 //const baseUrl = 'https://a415-200-50-126-98.ngrok-free.app';
 
 // Configuración inicial del mapa y capas
@@ -71,20 +62,6 @@ function initializeMap() {
     //className: 'map-tiles'
 
   }).addTo(map);
-
-  document.querySelector('#create-location-button-outMap').addEventListener('click', function () {
-    // Llamar a openCreateDialog con las coordenadas
-    if (latitude !== 0 && longitude !== 0) {
-      openCreateDialog(latitude, longitude);
-      markerGroup.clearLayers();
-
-      latitude = 0;
-      longitude = 0;
-    } else {
-      showCustomAlert('No se han especificado las coordenadas.');
-    }
-  });
-
   return map;
 }
 
@@ -101,19 +78,19 @@ function showSelectedLocation() {
       // Obtener el ícono correspondiente según la tipología
       const icon = icons[selectedLocation.tipologia];
 
+      //  <div style="font-family: monospace;">
+      //  Lat : ${selectedLocation.y_coord.toFixed(4)}<br> 
+      //  Long: ${selectedLocation.x_coord.toFixed(4)}<br>  
+      //  </div>
+
       // Verificar si el ícono está definido antes de crear el marcador
       if (icon) {
         // Crear el marcador con el ícono personalizado
-        //  <div style="font-family: monospace;">
-        //  Lat : ${selectedLocation.y_coord.toFixed(4)}<br> 
-        //  Long: ${selectedLocation.x_coord.toFixed(4)}<br>  
-        //  </div>
         const newMarker = L.marker([selectedLocation.y_coord, selectedLocation.x_coord], { icon })
           .bindPopup(`
             <strong>${selectedLocation.nombre}</strong><br>
             ${selectedLocation.tipologia}<br>
-            <button class="edit-btn" onclick="openEditDialog(${selectedLocation.gid})">Editar</button>
-            <button class="delete-btn" onclick="deleteLocation(${selectedLocation.gid})">Eliminar</button>
+            
           `)
           .openPopup();
 
@@ -127,8 +104,6 @@ function showSelectedLocation() {
 
 // Asigna la función al evento de clic del botón de mostrar todas las ubicaciones
 //showAllLocationsButton.addEventListener('click', showAllLocations);
-
-// Función para mostrar todas las ubicaciones según las tipologías seleccionadas
 
 function showPolygon() {
   // Limpiar todas las capas de polígonos existentes en el mapa

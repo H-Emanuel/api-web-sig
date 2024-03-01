@@ -117,3 +117,23 @@ body #map-container div.leaflet-control-container button.custom-control-button:h
     background-color: var(--black-80);
     box-shadow: 0px 0px 5px 5px var(--black-100);
 }
+
+.body-light .modal-content {
+    background-color: var(--black-20);
+    border: 2.5px solid var(--black-40);
+}
+
+.body-light .custom-alert-content {
+    background-color: var(--black-20);
+    border: 2.5px solid var(--black-40);
+}
+
+.body-light .custom-alert-content .close-button {
+    color: var(--black-60);
+    
+}
+
+.body-light .custom-alert-content .close-button:hover {
+    color: var(--black-100);
+    
+}

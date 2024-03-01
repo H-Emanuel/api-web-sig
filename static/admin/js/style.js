@@ -107,8 +107,8 @@ function togglePageMode() {
         document.body.classList.add('body-light'); // Cambia el color de fondo de la página a blanco
         mapContainer.classList.remove('body-dark');
         button.innerHTML = `<span class="material-symbols-outlined">dark_mode</span>`;
-        
-        
+
+
 
         lightModeButton.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>';
         isLightMode = true;
@@ -127,4 +127,18 @@ if (lightModeButton) {
     lightModeButton.addEventListener('click', function () {
         togglePageMode();
     });
+}
+
+// Función para mostrar el mensaje de alerta personalizado
+function showCustomAlert(message) {
+    const customAlert = document.getElementById('custom-alert');
+    const customAlertMessage = document.getElementById('custom-alert-message');
+    customAlertMessage.innerText = message;
+    customAlert.style.display = 'block';
+}
+
+// Función para cerrar el mensaje de alerta personalizado
+function closeCustomAlert() {
+    const customAlert = document.getElementById('custom-alert');
+    customAlert.style.display = 'none';
 }

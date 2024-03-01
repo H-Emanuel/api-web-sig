@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.10.0/proj4.js" integrity="sha512-e3rsOu6v8lmVnZylXpOq3DO/UxrCgoEMqosQxGygrgHlves9HTwQzVQ/dLO+nwSbOSAecjRD7Y/c4onmiBVo6w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/wellknown@0.5.0/wellknown.min.js"></script>
-    <title>Show Map</title>
+    <title>Show Map Public</title>
   </head>
   <body>
     <div id="map-container">
@@ -29,7 +29,7 @@
             <button id="light-mode-btn" class="btn-yellow"><span class="material-symbols-outlined">light_mode</span></button>
 
             <button id="show-tipology-percentages-button" class="btn-yellow"><span class="material-symbols-outlined">percent</span></button>
-            <button id="create-location-button-outMap" class="btn-cyan"><span class="material-symbols-outlined">add</span></button>
+            
           </div>
           <div id="filter">
             <button id="show-polygon-button" class="btn-cyan"><span class="material-symbols-outlined">hexagon</span></button>
@@ -41,10 +41,8 @@
 
       <div id="tipology-percentages-info"></div>
     </div>
-
-    {% include 'alerts.html' %}
-    <script src="{% static 'admin/js/map.js' %}"></script>
-    <script src="{% static 'admin/js/crud.js' %}"></script>
+    <script src="{% static 'admin/js/mapPublic.js' %}"></script>
+    <script src="{% static 'admin/js/crudPublic.js' %}"></script>
     <script src="{% static 'admin/js/style.js' %}"></script>
   </body>
 </html>

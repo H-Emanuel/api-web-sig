@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     # Ruta para la página principal (mostrar el mapa)
-    path('', views.home, name="home"),
+    path('', views.homePublic, name="homePublic"),
+    
+    path('homeComplete/', views.homeComplete, name="homeComplete"),    
 
     # Ruta para editar una ubicación específica
     path('edit/<int:gid>/', views.edit_location, name='edit_location'),

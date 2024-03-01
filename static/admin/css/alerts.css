@@ -1,0 +1,117 @@
+/* Estilos para el mensaje de alerta personalizado */
+.custom-alert {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert-content {
+    background-color: var(--black-80);
+    border: 2.5px solid var(--black-60);
+    margin: 18% auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
+    width: 30%;
+}
+
+.close-button {
+    color: var(--black-00);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: var(--black-80);
+    margin: 15% auto;
+    text-align: center;
+    padding: 20px;
+    border: 2.5px solid var(--black-60);
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
+    width: 300px;
+}
+
+.modal-buttons {
+    text-align: center;
+}
+
+.modal-button {
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    margin-inline: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 1.35);
+}
+
+.modal-confirm {
+    background-color: var(--red-100);
+    color: var(--black-00);
+}
+
+.modal-confirm:hover {
+    background-color: var(--red-80);
+    transition: box-shadow 0.5s;
+    box-shadow: 0px 0px 5px 5px var(--red-100) !important;
+}
+
+.modal-cancel {
+    background-color: var(--yellow-100);
+    color: var(--black-100);
+}
+
+.modal-cancel:hover {
+    background-color: var(--yellow-80);
+    transition: box-shadow 0.5s;
+    box-shadow: 0px 0px 5px 5px var(--yellow-100);
+}
+
+.delete-success-message {
+    background-color: var(--red-100);
+    color: var(--black-00);
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+.hidden {
+    display: none;
+}
