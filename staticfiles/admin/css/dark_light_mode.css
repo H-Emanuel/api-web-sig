@@ -1,0 +1,139 @@
+
+
+
+/* body light*/
+
+.body-light {
+    color: var(--black-100);
+    background-color: var(--black-40);
+}
+
+.body-light #map-container {
+    border: 2.5px solid var(--black-20);
+    background-color: var(--black-20);
+}
+
+.body-light #map-container select {
+    background-color: var(--black-40);
+    color: var(--black-00);
+}
+
+.body-light #map-container select:hover {
+    box-shadow: 0px 0px 5px 5px var(--black-100);
+}
+
+.body-light input,
+.body-light select {
+    color: var(--black-00);
+    background-color: var(--black-40);
+}
+
+.body-light #create-form-container {
+    background-color: var(--black-20);
+    border: 2px solid var(--black-40);
+
+}
+
+.body-light .leaflet-popup-content-wrapper,
+.body-light .leaflet-popup-tip {
+    background: var(--black-20) !important;
+    color: var(--black-100) !important;
+    border: 2px solid var(--black-40);
+}
+
+.body-light #light-mode-btn {
+    background-color: var(--black-100);
+    color: var(--black-00);
+}
+
+.body-light #light-mode-btn:hover {
+    background-color: var(--black-80);
+    box-shadow: 0px 0px 5px 5px var(--black-100);
+}
+
+/* .body-light {
+
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out,
+    .leaflet-control-attribution {
+        filter: none;
+    }
+} */
+
+.body-dark {
+
+    .leaflet-layer,
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out,
+    .leaflet-control-attribution {
+        filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+
+    }
+}
+
+
+
+body.body-light div.leaflet-control-container button.custom-control-button {
+    background-color: var(--black-100);
+    color: var(--black-00);
+    
+}
+
+body.body-light div.leaflet-control-container button.custom-control-button:hover{
+    background-color: var(--black-80);
+    box-shadow: 0px 0px 5px 5px var(--black-100);
+}
+
+body.body-light #map-container.body-dark div.leaflet-control-container button.custom-control-button {
+    background-color: var(--yellow-100);
+    color: var(--black-100);
+    
+}
+
+body.body-light #map-container.body-dark div.leaflet-control-container button.custom-control-button:hover{
+    background-color: var(--yellow-80);
+    box-shadow: 0px 0px 5px 5px var(--yellow-100);
+}
+
+body #map-container.body-dark div.leaflet-control-container button.custom-control-button {
+    background-color: var(--yellow-100);
+    color: var(--black-100);
+    
+}
+
+body #map-container.body-dark div.leaflet-control-container button.custom-control-button:hover{
+    background-color: var(--yellow-80);
+    box-shadow: 0px 0px 5px 5px var(--yellow-100);
+}
+
+body #map-container div.leaflet-control-container button.custom-control-button {
+    background-color: var(--black-100);
+    color: var(--black-00);
+    
+}
+
+body #map-container div.leaflet-control-container button.custom-control-button:hover{
+    background-color: var(--black-80);
+    box-shadow: 0px 0px 5px 5px var(--black-100);
+}
+
+.body-light .modal-content {
+    background-color: var(--black-20);
+    border: 2.5px solid var(--black-40);
+}
+
+.body-light .custom-alert-content {
+    background-color: var(--black-20);
+    border: 2.5px solid var(--black-40);
+}
+
+.body-light .custom-alert-content .close-button {
+    color: var(--black-60);
+    
+}
+
+.body-light .custom-alert-content .close-button:hover {
+    color: var(--black-100);
+    
+}

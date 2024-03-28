@@ -49,3 +49,74 @@ class Censo(models.Model):
     edad_15a64    = models.IntegerField(blank=True, null=True)
     edad_15a64   = models.IntegerField(blank=True, null=True)
     edad_65yma   = models.IntegerField(blank=True, null=True)
+
+class CopasAgua(models.Model):
+    gid = models.AutoField(primary_key=True)
+    nombre_pro = models.CharField(max_length=254, blank=True, null=True)
+    direccion_field = models.CharField(db_column='direccion_', max_length=254, blank=True, null=True)  # Field renamed because it ended with '_'.
+    superficie = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    tipo = models.CharField(max_length=50, blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'copas_agua'
+
+class Electrolineras(models.Model):
+    gid = models.AutoField(primary_key=True)
+    id = models.FloatField(blank=True, null=True)
+    nombre = models.CharField(max_length=50, blank=True, null=True)
+    propiedad = models.CharField(max_length=50, blank=True, null=True)
+    direccion = models.CharField(max_length=50, blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    tipologia = models.CharField(max_length=20, blank=True, null=True)
+    geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'electrolineras'
+    
+class EstacionesDeServicio(models.Model):
+    gid = models.AutoField(primary_key=True)
+    razon_soci = models.CharField(max_length=254, blank=True, null=True)
+    consultori = models.CharField(max_length=254, blank=True, null=True)
+    tipologia = models.CharField(max_length=50, blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'estaciones_de_servicio'
+
+class PtasEsval(models.Model):
+    gid = models.AutoField(primary_key=True)
+    nom_obra = models.CharField(max_length=254, blank=True, null=True)
+    estado_uso = models.CharField(max_length=254, blank=True, null=True)
+    tip_tratam = models.CharField(max_length=254, blank=True, null=True)
+    receptor = models.CharField(max_length=254, blank=True, null=True)
+    utm_norte = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    utm_este = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    tipologia = models.CharField(max_length=20, blank=True, null=True)
+    geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'ptas_esval'
+    
+
+class SubestacionesElectricas(models.Model):
+    gid = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=150, blank=True, null=True)
+    propiedad = models.CharField(max_length=100, blank=True, null=True)
+    estado = models.CharField(max_length=15, blank=True, null=True)
+    coord_este = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    coord_nort = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    categoria = models.CharField(max_length=50, blank=True, null=True)
+    tipologia = models.CharField(max_length=50, blank=True, null=True)
+    geom = models.TextField(blank=True, null=True)  # This field type is a guess.
+
+    class Meta:
+        managed = False
+        db_table = 'subestaciones_electricas'

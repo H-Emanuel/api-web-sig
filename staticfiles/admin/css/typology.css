@@ -1,0 +1,26 @@
+#tipology-percentages-info {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px 5px;
+    grid-template-areas: ". . . . . . . .";
+    justify-items: center;
+}
+
+/* Aplicar transición al quitar la clase .selected */
+#tipology-percentages-info img {
+    transition: 0.5s;
+}
+
+#tipology-percentages-info p {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-template-columns: min-content max-content;
+    grid-template-rows: 1fr;
+    gap: 5px 5px;
+    grid-template-areas: ". .";
+    align-items: end;
+}

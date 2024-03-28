@@ -37,7 +37,7 @@ showLocationButton.addEventListener('click', showSelectedLocation);
 // showPolygonButton.addEventListener('click', showPolygon);
 showPolygonButton.addEventListener('click', () => {
   showPolygon();
-  //showPolygonButton.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 1.35)';
+  showPolygonButton.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 1.35)';
 });
 
 // Solicitud para obtener datos de la API

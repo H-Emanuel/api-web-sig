@@ -1,15 +1,25 @@
 from django.db.models import Max
 from django.shortcuts import render, get_object_or_404, redirect
-from api.models import EquipamientoEducacion
+from api.models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 
 @csrf_protect
+# def homePublic(request):
+#     # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
+#     locations = CopasAgua.objects.order_by('gid')
+#     #return render(request, 'presentacion.html')
+#     return render(request, 'show_map_otros.html', {'locations': locations})
+
 def homePublic(request):
     # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
-    locations = EquipamientoEducacion.objects.filter(is_active=True).order_by('gid')
+    locations = CopasAgua.objects.order_by('gid')
     #return render(request, 'presentacion.html')
-    return render(request, 'show_map_public.html', {'locations': locations})
+    return render(request, 'show_map_otros.html', {'locations': locations})
+
+def home(request):
+
+    return render(request, 'censo.html',)
 
 def homeComplete(request):
     # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
@@ -17,6 +27,11 @@ def homeComplete(request):
     #return render(request, 'presentacion.html')
     return render(request, 'show_map.html', {'locations': locations})
 
+def DatosCenso(resquest):
+
+    datos = Censo.objects.order_by('id')
+
+    return render(resquest,'censo2017.html',{'datos':datos})
 
 @csrf_protect
 def get_active_locations(request):
