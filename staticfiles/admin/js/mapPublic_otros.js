@@ -48,6 +48,8 @@ function procesarDatos(url, origen) {
           nombre = item.razon_soci;
         } else if (item.nombre) {
           nombre = item.nombre;
+        }else if (item.nombre) {
+          nombre = item.nombre;
         }
         
         const customIcon = L.icon({
@@ -58,7 +60,7 @@ function procesarDatos(url, origen) {
         });
         
         // Crear un marcador en la ubicación especificada con el icono personalizado
-        const marker = L.marker([lat, lon], { icon: customIcon }).addTo(markerGroup);
+        const marker = L.marker([lat, lon]).addTo(markerGroup);
         
         // Agregar una etiqueta al marcador para indicar el origen de los datos
         marker.bindPopup(`<b>${nombre}</b><br>Coordenadas: (${lat}, ${lon})<br>Categoría: ${item.categoria || item.tipologia}<br>Consultorio: ${item.consultorio || ''}<br>Origen: ${origen}`).openPopup();
@@ -76,6 +78,8 @@ const urls = [
   { url: baseUrl + '/api/copasagua/', origen: 'Copas De Agua' },
   { url: baseUrl + '/api/electrolinera/', origen: 'Electrolinera' },
   { url: baseUrl + '/api/estaciones/', origen: 'Estaciones' },
+  { url: baseUrl + '/api/esval/', origen: 'Esval' },
+  { url: baseUrl + '/api/Subestaciones_electricasl/', origen: 'Subestaciones electricasl' },
   // Agrega más URLs aquí según sea necesario
 ];
 

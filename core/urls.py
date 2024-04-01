@@ -4,13 +4,13 @@ from . import views
 urlpatterns = [
     # Ruta para la página principal (mostrar el mapa)
 
-    path('home', views.home, name="home"),
+    path('equipamiento', views.home, name="home"),
 
 
-    path('', views.homePublic, name="homePublic"),
+    path('infraestructura', views.homePublic, name="homePublic"),
 
     # Ruta para la página principal (mostrar el mapa)
-    path('censo', views.DatosCenso, name="DatosCenso"),
+    path('', views.DatosCenso, name="DatosCenso"),
     
     path('homeComplete/', views.homeComplete, name="homeComplete"),    
 

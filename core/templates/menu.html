@@ -368,14 +368,15 @@ body.dark .home .text{
 
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="{% url 'DatosCenso' %}">
+
                             <i class='bx bx-bar-chart-alt-2 icon' ></i>
                             <span class="text nav-text">Datos del censo</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="{% url 'homePublic' %}" target="_blank">
                             <i class='bx bx-map icon' ></i>
                             <span class="text nav-text">infraestructura</span>
                             
@@ -383,7 +384,7 @@ body.dark .home .text{
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="{% url 'home' %}" target="_blank">
                             <i class='bx bxs-school icon'></i>
                             <span class="text nav-text">Educacion</span>
                         </a>

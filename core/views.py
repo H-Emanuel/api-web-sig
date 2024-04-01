@@ -19,7 +19,10 @@ def homePublic(request):
 
 def home(request):
 
-    return render(request, 'censo.html',)
+        # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
+    locations = EquipamientoEducacion.objects.order_by('gid')
+    #return render(request, 'presentacion.html')
+    return render(request, 'show_map_public.html', {'locations': locations})
 
 def homeComplete(request):
     # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
@@ -31,7 +34,7 @@ def DatosCenso(resquest):
 
     datos = Censo.objects.order_by('id')
 
-    return render(resquest,'censo2017.html',{'datos':datos})
+    return render(resquest,'censo.html',{'datos':datos})
 
 @csrf_protect
 def get_active_locations(request):
