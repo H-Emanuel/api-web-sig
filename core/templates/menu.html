@@ -25,18 +25,17 @@
     font-family: 'Poppins', sans-serif;
 }
 .container {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 50px; /* Ajusta este valor según sea necesario */
-    }
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px; /* Ajusta este valor según sea necesario */
+}
 
-
-    #myChart {
-        width: 500px;
-        height: 500px;
-    }
+#myChart {
+    width: 500px;
+    height: 500px;
+}
 
 :root{
     /* ===== Colors ===== */
@@ -337,6 +336,17 @@ body.dark .switch::before{
 }
 body.dark .home .text{
     color: var(--text-color);
+}
+@media screen and (max-width: 768px) {
+    .container {
+        display: block;
+        margin-left: 0;
+    }
+
+    #myChart {
+        width: 90vw; /* 90% del ancho de la ventana */
+        height: auto; /* Altura automática para mantener la proporción */
+    }
 }
 
 

@@ -77,14 +77,19 @@
 <br>
 <h1 class="text">Datos del Censo por</h1>
 <h1 class="text">Unidad Vecinal</h1>
-
-<br>
-<br>
 <h2 class="text">Datos</h2>
-<br>
-<br>
+<select id="uvSelect">
+    <!-- Las opciones del select se llenarán con JavaScript -->
+</select>
+<br><br>
+<div class="container">
+
+    <canvas id="uvChart" width="400" height="400"></canvas>
+</div>
+
 
 <script src="{% static 'admin/js/graficos.js' %}"></script>
+<script src="{% static 'admin/js/graficos_por_uv.js' %}"></script>
 
 
 
