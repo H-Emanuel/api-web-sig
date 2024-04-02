@@ -20,7 +20,6 @@ async function fetchData() {
     }
 }
 
-// Función para procesar los datos y crear los gráficos
 async function createCharts() {
     const dataList = await fetchData();
     if (dataList) {
@@ -53,8 +52,8 @@ async function createCharts() {
                 label: 'Distribución por género',
                 data: [totalHombres, totalMujeres],
                 backgroundColor: [
-                    'rgb(55, 73, 98)', // Color azul para hombres
-                    'rgb(61, 48, 82)' // Color naranja para mujeres
+                    'rgb(0, 203, 255)', // Color azul para hombres
+                    'rgb(242, 138, 41)' // Color naranja para mujeres
                 ]
 
             }]
@@ -62,7 +61,16 @@ async function createCharts() {
         const genderCtx = document.getElementById('genderChart').getContext('2d');
         new Chart(genderCtx, {
             type: 'pie',
-            data: genderData
+            data: genderData,
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Color de las letras en blanco
+                        }
+                    }
+                }
+            }
         });
 
         // Gráfico de distribución por edad
@@ -71,13 +79,35 @@ async function createCharts() {
             datasets: [{
                 label: 'Distribución por edad',
                 data: [total0a5, total6a14, total15a64, total65yma],
-                backgroundColor: ['rgb(55, 73, 98)', 'rgb(55, 73, 98)', 'rgb(55, 73, 98)', 'rgb(55, 73, 98)']
+                backgroundColor: ['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'],
+                borderColor: '#36A2EB',
             }]
         };
         const ageCtx = document.getElementById('ageChart').getContext('2d');
         new Chart(ageCtx, {
             type: 'bar',
-            data: ageData
+            data: ageData,
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Color de las letras en blanco
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // Color de las etiquetas en el eje X en blanco
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white' // Color de las etiquetas en el eje Y en blanco
+                        }
+                    }
+                }
+            }
         });
 
         // Gráfico de total de personas y viviendas
@@ -86,13 +116,34 @@ async function createCharts() {
             datasets: [{
                 label: 'Total de personas y viviendas',
                 data: [totalPers, totalVivi],
-                backgroundColor: ['rgb(55, 73, 98)', 'rgb(55, 73, 98)']
+                backgroundColor: ['rgb(255, 255, 255)', 'rgb(255, 255, 255)']
             }]
         };
         const populationCtx = document.getElementById('populationChart').getContext('2d');
         new Chart(populationCtx, {
             type: 'bar',
-            data: populationData
+            data: populationData,
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Color de las letras en blanco
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // Color de las etiquetas en el eje X en blanco
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white' // Color de las etiquetas en el eje Y en blanco
+                        }
+                    }
+                }
+            }
         });
     }
 }

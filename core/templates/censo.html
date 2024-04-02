@@ -52,44 +52,49 @@
 </head>
     
 
-<h1 class="text">Datos de censo 2017</h1>
+<h1 class="text" style="font-size: 50px;">Datos de censo 2017</h1>
 <br>
 <br>
-<h2 class="text">Resumen de los datos de los censo 2017</h2>
-<br>
-<br>
+
 <div class="container">
     <div>
-        <h3 class="text">Distribución por género</h3>
+        <h5 class="text" style="font-size: 30px;">Distribución por sexo</h5>
         <canvas id="genderChart" width="400" height="400"></canvas>
     </div>
     <div>
-        <h3 class="text">Distribución por edad</h3>
+        <h5 class="text" style="font-size: 30px;">Distribución por edad</h5>
         <canvas id="ageChart" width="400" height="400"></canvas>
     </div>
     <div>
-        <h3 class="text">Total de personas y viviendas</h3>
+        <h5 class="text" style="font-size: 30px;">Total de personas y viviendas</h5>
         <canvas id="populationChart" width="400" height="400"></canvas>
     </div>
     
 </div>
 <br>
 <br>
-<h1 class="text">Datos del Censo por</h1>
-<h1 class="text">Unidad Vecinal</h1>
-<h2 class="text">Datos</h2>
-<select id="uvSelect">
-    <!-- Las opciones del select se llenarán con JavaScript -->
-</select>
-<br><br>
-<div class="container">
+<h1 class="text" style="font-size: 50px;">Datos de censo 2002</h1>
+<br>
+<br>
 
-    <canvas id="uvChart" width="400" height="400"></canvas>
+<div class="container">
+    <div>
+        <h5 class="text" style="font-size: 30px;">Distribución por sexo</h5>
+        <canvas id="genderChart" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <h5 class="text" style="font-size: 30px;">Distribución por edad</h5>
+        <canvas id="ageChart" width="400" height="400"></canvas>
+    </div>
+    <div>
+        <h5 class="text" style="font-size: 30px;">Total de personas y viviendas</h5>
+        <canvas id="populationChart" width="400" height="400"></canvas>
+    </div>
+    
 </div>
 
 
 <script src="{% static 'admin/js/graficos.js' %}"></script>
-<script src="{% static 'admin/js/graficos_por_uv.js' %}"></script>
 
 
 

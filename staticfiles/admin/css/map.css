@@ -8,7 +8,7 @@
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1.35);
-    background-color: var(--black-60);
+    background-color: #1974bf;
     width: 95%;
     height: 90%;
 }
