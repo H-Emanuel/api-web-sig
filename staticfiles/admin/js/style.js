@@ -1,4 +1,4 @@
-const baseUrlMarker = `${baseUrl}/staticfiles/admin/img`;
+const baseUrlMarker = `${baseUrl}/media/image`;
 
 // Define los íconos personalizados para cada tipología
 const iconOptions = {
@@ -10,11 +10,11 @@ const iconOptions = {
 const icons = {
     'CENTRO EDUCATIVO': L.icon({
         ...iconOptions,
-        iconUrl: `${baseUrlMarker}/centro_educativo_icon.svg`,
+        iconUrl: `${baseUrlMarker}/centro_educativo_icon.png`,
     }),
     'EDUC BASICA Y MEDIA': L.icon({
         ...iconOptions,
-        iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.svg`,
+        iconUrl: `${baseUrlMarker}/educ_basica_y_media_icon.png`,
     }),
     'EDUC ESPECIAL': L.icon({
         ...iconOptions,

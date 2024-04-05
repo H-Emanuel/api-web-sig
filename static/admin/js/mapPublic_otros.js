@@ -7,82 +7,65 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     baseUrl = 'https://apisig.munivalpo.cl';
 }
 
-const map = initializeMap();
-
-// Crear un grupo de capas para los marcadores y agregarlo al mapa
-let markerGroup = L.layerGroup().addTo(map);
-
-let data; // Variable para almacenar datos
-
-let isPolygonVisible = false;
-
-
-
 function initializeMap() {
   const initialView = [-33.0458, -71.6197];
   const map = L.map('map').setView(initialView, 14);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     //className: 'map-tiles'
-
   }).addTo(map);
   return map;
 }
 
-function procesarDatos(url, origen) {
+// Agrega el control de capas al mapa
+const controlLayers = L.control.layers().addTo(initializeMap());
+
+function procesarDatos(url, origen, icono) {
   fetch(url)
-    .then(response => response.json()) // Parsear la respuesta JSON
+    .then(response => response.json())
     .then(data => {
-      // Procesar los datos JSON y agregar marcadores al mapa
+      // Crea un nuevo grupo de capas para este conjunto de marcadores
+      const markerGroup = L.layerGroup();
+
+      // Procesar los datos JSON y agregar marcadores al grupo de capas
       data.forEach(item => {
-        // Acceder a las coordenadas de cada objeto JSON
         const lat = item.y_coord || item.latitud;
         const lon = item.x_coord || item.longitud;
-        
-        // Obtener el nombre del proyecto o de la razón social según el tipo de datos
-        let nombre = '';
-        if (item.nombre_pro) {
-          nombre = item.nombre_pro;
-        } else if (item.razon_soci) {
-          nombre = item.razon_soci;
-        } else if (item.nombre) {
-          nombre = item.nombre;
-        }else if (item.nombre) {
-          nombre = item.nombre;
-        }
-        
+
+        let nombre = item.nombre_pro || item.razon_soci || item.nombre || '';
+
         const customIcon = L.icon({
-          iconUrl: '/static/admin/img/proyecto.jpg',
-          iconSize: [32, 32], // Tamaño del icono en píxeles
-          iconAnchor: [16, 32], // Punto de anclaje del icono
-          popupAnchor: [0, -32] // Punto de anclaje del popup
+          iconUrl: 'media/image/' + icono,
+          iconSize: [32, 32],
+          iconAnchor: [16, 32],
+          popupAnchor: [0, -32]
         });
-        
-        // Crear un marcador en la ubicación especificada con el icono personalizado
-        const marker = L.marker([lat, lon]).addTo(markerGroup);
-        
-        // Agregar una etiqueta al marcador para indicar el origen de los datos
-        marker.bindPopup(`<b>${nombre}</b><br>Coordenadas: (${lat}, ${lon})<br>Categoría: ${item.categoria || item.tipologia}<br>Consultorio: ${item.consultorio || ''}<br>Origen: ${origen}`).openPopup();
+
+        const marker = L.marker([lat, lon], { icon: customIcon });
+
+        marker.bindPopup(`<b>${nombre}</b><br>Coordenadas: (${lat}, ${lon})<br>Categoría: ${item.categoria || item.tipologia}<br>Consultorio: ${item.consultorio || ''}<br>Origen: ${origen}`);
+
+        markerGroup.addLayer(marker); // Agrega el marcador al grupo de capas
       });
+
+      // Añade el grupo de capas al control de capas con la etiqueta correspondiente
+      controlLayers.addOverlay(markerGroup, origen);
     })
     .catch(error => {
       console.error('Error al obtener los datos:', error);
     });
 }
 
-
-// Llamar a la función procesarDatos con diferentes URLs
 // Llamar a la función procesarDatos con diferentes URLs
 const urls = [
-  { url: baseUrl + '/api/copasagua/', origen: 'Copas De Agua' },
-  { url: baseUrl + '/api/electrolinera/', origen: 'Electrolinera' },
-  { url: baseUrl + '/api/estaciones/', origen: 'Estaciones' },
-  { url: baseUrl + '/api/esval/', origen: 'Esval' },
-  { url: baseUrl + '/api/Subestaciones_electricasl/', origen: 'Subestaciones electricasl' },
-  // Agrega más URLs aquí según sea necesario
+  { url: baseUrl + '/api/copasagua/', origen: 'Copas De Agua', icono: 'COPAS_AGUA.png' },
+  { url: baseUrl + '/api/electrolinera/', origen: 'Electrolinera', icono: 'ELECTROLINERAS.png' },
+  { url: baseUrl + '/api/estaciones/', origen: 'Estaciones', icono: 'ESTACION_DE_SERVICIO.png' },
+  { url: baseUrl + '/api/esval/', origen: 'Esval', icono: 'PTAS_ESVAL.png' },
+  { url: baseUrl + '/api/Subestaciones_electricasl/', origen: 'Subestaciones electricasl', icono: 'COPAS_AGUA.png' }
 ];
 
-urls.forEach(({ url, origen }) => {
-  procesarDatos(url, origen);
+urls.forEach(({ url, origen, icono }) => {
+  procesarDatos(url, origen, icono);
 });
