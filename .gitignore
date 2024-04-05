@@ -1,7 +1,8 @@
 .vscode/
 /api/migrations/
 .idea/
-/apiRest_geoportal/settings.py
+/apiRest_geoportal/settings.py/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
