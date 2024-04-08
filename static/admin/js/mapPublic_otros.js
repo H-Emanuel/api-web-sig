@@ -10,9 +10,9 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 function initializeMap() {
   const initialView = [-33.0458, -71.6197];
   const map = L.map('map').setView(initialView, 14);
-  L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     //className: 'map-tiles'
   }).addTo(map);
   return map;
@@ -63,7 +63,7 @@ const urls = [
   { url: baseUrl + '/api/electrolinera/', origen: 'Electrolinera', icono: 'ELECTROLINERAS.png' },
   { url: baseUrl + '/api/estaciones/', origen: 'Estaciones', icono: 'ESTACION_DE_SERVICIO.png' },
   { url: baseUrl + '/api/esval/', origen: 'Esval', icono: 'PTAS_ESVAL.png' },
-  { url: baseUrl + '/api/Subestaciones_electricasl/', origen: 'Subestaciones electricasl', icono: 'COPAS_AGUA.png' }
+  { url: baseUrl + '/api/Subestaciones_electricasl/', origen: 'Subestaciones electricasl', icono: 'BIOENERGIA.png' }
 ];
 
 urls.forEach(({ url, origen, icono }) => {
