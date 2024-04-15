@@ -21,6 +21,9 @@ function initializeMap() {
 // Agrega el control de capas al mapa
 const controlLayers = L.control.layers().addTo(initializeMap());
 
+// Definir un objeto para almacenar el recuento de equipamientos por origen
+const equipamientoPorOrigen = {};
+
 function procesarDatos(url, origen, icono) {
   fetch(url)
     .then(response => response.json())
@@ -47,14 +50,117 @@ function procesarDatos(url, origen, icono) {
         marker.bindPopup(`<b>${nombre}</b><br>Coordenadas: (${lat}, ${lon})<br>Categoría: ${item.categoria || item.tipologia}<br>Consultorio: ${item.consultorio || ''}<br>Origen: ${origen}`);
 
         markerGroup.addLayer(marker); // Agrega el marcador al grupo de capas
+        
+        // Incrementar el contador de equipamientos por origen
+        equipamientoPorOrigen[origen] = (equipamientoPorOrigen[origen] || 0) + 1;
       });
 
       // Añade el grupo de capas al control de capas con la etiqueta correspondiente
       controlLayers.addOverlay(markerGroup, origen);
+
+      // Una vez procesados los datos de todos los equipamientos, crear los gráficos
+      if (Object.keys(equipamientoPorOrigen).length === urls.length) {
+        crearGraficos();
+      }
     })
     .catch(error => {
       console.error('Error al obtener los datos:', error);
     });
+}
+
+function crearGraficos() {
+  // Obtener los datos para el gráfico de barras
+  const datosBarra = {
+    etiquetas: Object.keys(equipamientoPorOrigen),
+    valores: Object.values(equipamientoPorOrigen)
+  };
+
+  // Obtener los datos para el gráfico de pastel
+  const totalEquipamientos = datosBarra.valores.reduce((total, valor) => total + valor, 0);
+  const datosPastel = {
+    etiquetas: datosBarra.etiquetas,
+    valores: datosBarra.valores.map(valor => (valor / totalEquipamientos * 100).toFixed(2)) // Calcular porcentajes
+  };
+
+  // Crear gráfico de barras
+  crearGraficoBarras(datosBarra.etiquetas, datosBarra.valores);
+
+  // Crear gráfico de pastel
+  crearGraficoPastel(datosPastel.etiquetas, datosPastel.valores);
+}
+
+function crearGraficoBarras(etiquetas, valores) {
+  const ctx = document.getElementById('graficoBarras').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: etiquetas,
+      datasets: [{
+        label: 'Cantidad de Equipamientos por Origen',
+        data: valores,
+        backgroundColor: 'white', // Color azul claro
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: 'white' // Color del texto en el eje Y en blanco
+          }
+
+        },
+        x:{
+          ticks: {
+            color: 'white' // Color del texto en el eje Y en blanco
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: 'white' // Color de las etiquetas en blanco
+          }
+        }
+      }
+    }
+  });
+}
+
+
+function crearGraficoPastel(etiquetas, valores) {
+  const ctx = document.getElementById('graficoPastel').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: etiquetas,
+      datasets: [{
+        
+        label: 'Porcentaje de Equipamientos por Origen',
+        data: valores,
+        backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(153, 102, 255)'], // Colores transparentes
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: 'white' 
+          }
+        },
+        
+        title: {
+          display: true,
+          text: 'Porcentaje de Equipamientos por Origen',
+          color: 'white' 
+        }
+      }
+    }
+  });
 }
 
 // Llamar a la función procesarDatos con diferentes URLs
@@ -69,3 +175,4 @@ const urls = [
 urls.forEach(({ url, origen, icono }) => {
   procesarDatos(url, origen, icono);
 });
+

@@ -11,6 +11,7 @@
     
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
     
     <!--<title>Dashboard Sidebar Menu</title>--> 
 </head>
@@ -61,7 +62,7 @@ body{
 
 ::selection{
     background-color: var(--primary-color);
-    color: #fff;
+    color: #6a6a6a;
 }
 
 body.dark{
@@ -356,7 +357,7 @@ body.dark .home .text{
         <header>
             <div class="image-text">
                 <span class="image">
-                    <!--<img src="logo.png" alt="">-->
+                    <img src="/media/image/Logo.png" alt="">
                 </span>
 
                 <div class="text logo-text">
@@ -386,7 +387,7 @@ body.dark .home .text{
                     </li>
 
                     <li class="nav-link">
-                        <a href="{% url 'homePublic' %}" target="_blank">
+                        <a href="{% url 'homePublic' %}">
                             <i class='bx bx-map icon' ></i>
                             <span class="text nav-text">Infraestructura</span>
                             
