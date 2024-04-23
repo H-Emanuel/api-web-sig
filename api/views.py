@@ -60,4 +60,12 @@ class SubestacionesElectricaslDetail(generics.RetrieveAPIView):
     queryset = SubestacionesElectricas.objects.all()
     serializer_class = SubestacioneselectricasSerializer
 
+class ProyectoList(generics.ListAPIView):
+    queryset = Proyectos.objects.all()
+    serializer_class = ProyectoSerializer
+
+class ProyectolDetail(generics.RetrieveAPIView):
+    queryset = Proyectos.objects.all()
+    serializer_class = ProyectoSerializer
+
 

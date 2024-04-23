@@ -24,5 +24,8 @@ urlpatterns = [
     path('Subestaciones_electricasl/', views.SubestacionesElectricaslList.as_view(), name='censo-list'),
     path('Subestaciones_electricasl/<int:pk>/', views.SubestacionesElectricaslDetail.as_view(), name='censo-detail'),
 
+    path('Proyectos/', views.ProyectoList.as_view(), name='ProyectoList'),
+    path('Proyectos/<int:pk>/', views.ProyectolDetail.as_view(), name='ProyectolDetail'),
+
 
 ]

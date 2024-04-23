@@ -120,3 +120,18 @@ class SubestacionesElectricas(models.Model):
     class Meta:
         managed = False
         db_table = 'subestaciones_electricas'
+class Proyectos(models.Model):
+    id = models.AutoField(primary_key=True)
+    idiniciativa = models.IntegerField(blank=True, null=True)
+    nombre_iniciativa = models.TextField(blank=True, null=True)
+    tipologia = models.TextField(blank=True, null=True)
+    fuente = models.TextField(blank=True, null=True)
+    programa = models.TextField(blank=True, null=True)
+    idmercado = models.TextField(blank=True, null=True)
+    monto = models.BigIntegerField(blank=True, null=True)
+    fecha_contrato = models.DateField(blank=True, null=True)
+    fecha_termino = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'proyectos'

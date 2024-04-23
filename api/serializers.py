@@ -160,3 +160,10 @@ class SubestacioneselectricasSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubestacionesElectricas
         fields = ['gid', 'nombre', 'propiedad', 'estado', 'coord_este', 'coord_nort', 'categoria', 'tipologia','x_coord', 'y_coord',]
+
+    
+class ProyectoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proyectos
+        fields = ['id','idiniciativa', 'nombre_iniciativa', 'tipologia', 'fuente', 'programa', 'idmercado', 'monto', 'fecha_contrato','fecha_termino',]
+
