@@ -1,6 +1,10 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 from .models import *
 from shapely.wkb import loads
+from django.contrib.auth.models import User
+
+
 
 class EquipamientoSerializer(serializers.ModelSerializer):
     x_coord = serializers.SerializerMethodField()  # Coordenada X
@@ -41,13 +45,11 @@ class limiteSerializer(serializers.ModelSerializer):
         model = Limite_poligono
         fields = ['gid', 'geom']
 
-
 class censoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Censo
-        fields = ['id', 'uv','total_pers', 'total_vivi','hombres', 'mujeres','edad_0a5', 'edad_6a14','edad_15a64', 'edad_15a64','edad_65yma']
-
+        fields = ['id', 'uv','total_pers', 'total_vivi','hombres', 'mujeres','edad_0a5', 'edad_6a14','edad_15a64', 'edad_15a64','edad_65yma','cerro']
 
 class CopasaguaSerializer(serializers.ModelSerializer):
     x_coord = serializers.SerializerMethodField()  # Coordenada X
@@ -70,7 +72,6 @@ class CopasaguaSerializer(serializers.ModelSerializer):
     class Meta:
         model = CopasAgua
         fields = ['gid', 'nombre_pro', 'direccion_field', 'superficie','categoria', 'x_coord', 'y_coord']
-
 
 class ElectrolineraSerializer(serializers.ModelSerializer):
     x_coord = serializers.SerializerMethodField()  # Coordenada X
@@ -116,7 +117,6 @@ class EstacionesdeservicioSerializer(serializers.ModelSerializer):
         model = EstacionesDeServicio
         fields = ['gid', 'razon_soci', 'consultori','categoria', 'tipologia', 'x_coord', 'y_coord']
 
-
 class PtasesvalSerializer(serializers.ModelSerializer):
     x_coord = serializers.SerializerMethodField()  # Coordenada X
     y_coord = serializers.SerializerMethodField()  # Coordenada Y
@@ -161,9 +161,29 @@ class SubestacioneselectricasSerializer(serializers.ModelSerializer):
         model = SubestacionesElectricas
         fields = ['gid', 'nombre', 'propiedad', 'estado', 'coord_este', 'coord_nort', 'categoria', 'tipologia','x_coord', 'y_coord',]
 
-    
 class ProyectoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proyectos
         fields = ['id','idiniciativa', 'nombre_iniciativa', 'tipologia', 'fuente', 'programa', 'idmercado', 'monto', 'fecha_contrato','fecha_termino',]
 
+class UserSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+        )
+        validators = [
+            UniqueTogetherValidator(
+                queryset=User.objects.all(),
+                fields=['username', 'email']
+            )
+        ]

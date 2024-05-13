@@ -27,5 +27,6 @@ urlpatterns = [
     path('Proyectos/', views.ProyectoList.as_view(), name='ProyectoList'),
     path('Proyectos/<int:pk>/', views.ProyectolDetail.as_view(), name='ProyectolDetail'),
 
+    path('user/', views.UserRecordView.as_view(), name='users'),
 
 ]

@@ -39,6 +39,8 @@ class Limite_poligono(models.Model):
 class Censo(models.Model):
     id = models.AutoField(primary_key=True)
     uv  = models.CharField(max_length=254, blank=True, null=True)
+    cerro  = models.CharField(max_length=254, blank=True, null=True)
+
     total_pers  = models.IntegerField(blank=True, null=True)
     total_vivi  = models.IntegerField(blank=True, null=True)
     hombres   = models.IntegerField(blank=True, null=True)
