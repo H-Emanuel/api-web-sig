@@ -22,5 +22,8 @@ urlpatterns = [
     
     path('create/', views.create_location, name='create_location'),
     
+    path('barra/', views.Barra, name='Barra'),
+
+
     path('get_active_locations/', views.get_active_locations, name='get_active_locations'),
 ]

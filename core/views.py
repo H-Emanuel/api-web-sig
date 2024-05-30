@@ -17,6 +17,11 @@ def homePublic(request):
     #return render(request, 'presentacion.html')
     return render(request, 'show_map_otros.html', {'locations': locations})
 
+def Barra(request):
+    #return render(request, 'presentacion.html')
+    return render(request, 'diseño_barra.html',)
+
+
 def home(request):
 
         # Obtén todas las ubicaciones activas y ordénalas por el atributo "gid"
