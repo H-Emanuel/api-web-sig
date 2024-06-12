@@ -24,6 +24,8 @@ urlpatterns = [
     
     path('barra/', views.Barra, name='Barra'),
 
+    path('dimension/', views.Dimension, name='Dimension'),
+
 
     path('get_active_locations/', views.get_active_locations, name='get_active_locations'),
 ]

@@ -21,6 +21,10 @@ def Barra(request):
     #return render(request, 'presentacion.html')
     return render(request, 'diseño_barra.html',)
 
+def Dimension(request):
+    #return render(request, 'presentacion.html')
+    return render(request, 'diseño_dimension.html',)
+
 
 def home(request):
 
