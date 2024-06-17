@@ -17,7 +17,6 @@ body {
 
 .carousel-container {
     width: 80%;
-    max-width: 1200px;
     background-color: white;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -27,22 +26,25 @@ body {
 
 .theme-buttons {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 20px;
 }
 
 .theme-button {
     padding: 10px 20px;
-    background-color: #04184c;
-    color: white;
+    background-color: #00ffd0 ;  
+    color: black;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: 5px;
 }
 
 .theme-button:hover {
-    background-color: #4ac1e0;
+    background-color: #1ab69a;
 }
 
 .carousel {
@@ -70,7 +72,7 @@ body {
 
 .card {
     flex: 1;
-    margin: 10px;
+    margin: 15px;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -78,6 +80,11 @@ body {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px; /* Ajusta este valor según sea necesario */
+    max-width: 300px; /* Asegura un tamaño máximo de las tarjetas */
 }
 
 .carousel-item.active .card {
@@ -87,36 +94,45 @@ body {
 
 .card img {
     width: 100%;
-    height: 150px;
+    height: 150px; /* Ajusta este valor según sea necesario */
     object-fit: cover;
 }
 
 .card-content {
     padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-content h3 {
-    margin: 10px 0;
+    margin: 0;
     font-size: 1.2em;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .card-content p {
     margin: 10px 0;
+    flex-grow: 1;
 }
 
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #04184c;
-    color: white;
+    background-color: #00ffd0;
+    color: black;
     text-align: center;
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .btn:hover {
-    background-color: #4ac1e0;
+    background-color: #1ab69a;
 }
 
     </style>
@@ -128,7 +144,7 @@ body {
             <button class="theme-button" data-theme="tema-2">Socioeconómicos</button>
             <button class="theme-button" data-theme="tema-3">Socioambientales</button>
             <button class="theme-button" data-theme="tema-4">Sociosanitarios</button>
-            <button class="theme-button" data-theme="tema-5">Habitabilidad o sociourbano</button>
+            <button class="theme-button" data-theme="tema-5">Sociourbano o Habitabilidad</button>
         </div>
         <div class="carousel">
             <div class="carousel-inner">
@@ -158,22 +174,6 @@ body {
                             <a href="#" class="btn">Visitar</a>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 4 de Tema 1">
-                        <div class="card-content">
-                            <h3>Título del Panel 4 de Tema 1</h3>
-                            <p>Descripción del panel 4 de Tema 1</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 5 de Tema 1">
-                        <div class="card-content">
-                            <h3>Título del Panel 5 de Tema 1</h3>
-                            <p>Descripción del panel 5 de Tema 1</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div> -->
                 </div>
                 <!-- Tema 2 -->
                 <div class="carousel-item" id="tema-2">
@@ -216,43 +216,19 @@ body {
                     <div class="card">
                         <img src="https://via.placeholder.com/150" alt="Imagen 1 de Tema 3">
                         <div class="card-content">
-                            <h3>Áreas Verdes</h3>
-                            <p>Cantidad de metros </p>
+                            <h3>Áreas Verdes Públicas  PIIMEP</h3>
+                            <p>Cantidad de metros cuadrados total comunal</p>
                             <a href="#" class="btn">Visitar</a>
                         </div>
                     </div>
                     <div class="card">
                         <img src="https://via.placeholder.com/150" alt="Imagen 2 de Tema 3">
                         <div class="card-content">
-                            <h3>Públicas  PIIMEP</h3>
-                            <p>cuadrados total comunal</p>
+                            <h3>Humedales</h3>
+                            <p>Descripción del panel 2 de Tema 3</p>
                             <a href="#" class="btn">Visitar</a>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 3 de Tema 3">
-                        <div class="card-content">
-                            <h3>Título del Panel 3 de Tema 3</h3>
-                            <p>Descripción del panel 3 de Tema 3</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 4 de Tema 3">
-                        <div class="card-content">
-                            <h3>Título del Panel 4 de Tema 3</h3>
-                            <p>Descripción del panel 4 de Tema 3</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 5 de Tema 3">
-                        <div class="card-content">
-                            <h3>Título del Panel 5 de Tema 3</h3>
-                            <p>Descripción del panel 5 de Tema 3</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div> -->
                 </div>
                 <!-- Tema 4 -->
                 <div class="carousel-item" id="tema-4">
@@ -272,30 +248,6 @@ body {
                             <a href="#" class="btn">Visitar</a>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 3 de Tema 4">
-                        <div class="card-content">
-                            <h3>Título del Panel 3 de Tema 4</h3>
-                            <p>Descripción del panel 3 de Tema 4</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 4 de Tema 4">
-                        <div class="card-content">
-                            <h3>Título del Panel 4 de Tema 4</h3>
-                            <p>Descripción del panel 4 de Tema 4</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 5 de Tema 4">
-                        <div class="card-content">
-                            <h3>Título del Panel 5 de Tema 4</h3>
-                            <p>Descripción del panel 5 de Tema 4</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div> -->
                 </div>
                 <!-- Tema 5 -->
                 <div class="carousel-item" id="tema-5">
@@ -332,14 +284,6 @@ body {
                             <a href="#" class="btn">Visitar</a>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 5 de Tema 5">
-                        <div class="card-content">
-                            <h3>Título del Panel 5 de Tema 5</h3>
-                            <p>Descripción del panel 5 de Tema 5</p>
-                            <a href="#" class="btn">Visitar</a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
