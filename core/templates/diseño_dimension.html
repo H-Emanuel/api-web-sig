@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -242,11 +243,11 @@ svg {
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://via.placeholder.com/150" alt="Imagen 2 de Tema 3">
+                        <img src="/media/image/humedal_2.jpg" alt="https://via.placeholder.com/150">
                         <div class="card-content">
                             <h3>Humedales</h3>
                             <p>Descripción del panel 2 de Tema 3</p>
-                            <a href="#" class="btn">Visitar</a>
+                            <a target="_blank" href="https://storymaps.arcgis.com/stories/edaae8a2757b46b586fed18b26382fca" class="btn">Visitar</a>
                         </div>
                     </div>
                 </div>
@@ -353,11 +354,18 @@ document.getElementById('tema-1').classList.add('active');
 setTimeout(() => {
     document.querySelectorAll('#tema-1 .card').forEach(card => {
         card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
+        card.style .transform = 'translateY(0)';
     });
 }, 50);
 
 
+    // si algun dia me dice que java y javascript son lo mismo te juro que por
+    // tengo que realzir 
+    // varios cambios al html pero tengo tanta paja o estoy muy fustrado al punto que talves lo mejor que puedo hacer es irme si 
+    // he hecho lo que puedo pero realmente siento que 
+    // aqui en este lugar ahora mismo estoy estacado 
+    //por el simple hecho de que }
+    //
     </script>
 </body>
 </html>
