@@ -7,288 +7,188 @@
     <title>Carrusel con Transiciones</title>
     <style>
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.carousel-container {
-    width: 80%;
-    background-color: white;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.theme-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 20px;
+.base-square {
+  width: 100px;
+  height: 100px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
 }
 
-.theme-button {
-    padding: 15px 20px;
-    background-color: #0c37e4 ;  
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 10px;
-    font-size: 15px;
+.base-1 {
+  background-color: #3498db; /* Azul */
 }
 
-.theme-button:hover {
-    background-color: #1b3bbc;
+.base-2 {
+  background-color: #e74c3c; /* Rojo */
 }
 
-.carousel {
-    overflow: hidden;
-    border: 2px solid #ccc;
-    border-radius: 10px;
+.base-3 {
+  background-color: #f39c12; /* Naranja */
 }
 
-.carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
+.base-4 {
+  background-color: #9b59b6; /* Púrpura */
 }
 
-.carousel-item {
-    min-width: 100%;
-    display: none;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
+.base-5 {
+  background-color: #2ecc71; /* Verde */
 }
 
-.carousel-item.active {
-    display: flex;
+.base-square.active {
+  filter: brightness(0.8);
 }
 
-.card {
-    flex: 1;
-    margin: 15px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 450px; /* Ajusta este valor según sea necesario */
-    /* Asegura un tamaño máximo de las tarjetas */
+.hidden-squares {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.carousel-item.active .card {
-    opacity: 1;
-    transform: translateY(0);
+.square {
+  width: 100px;
+  height: 100px;
+  background-color: #2ecc71;
+  color: white;
+  display: inline-block;
+  line-height: 100px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.card img {
-    width: 100%;
-    height: 250px; /* Ajusta este valor según sea necesario */
-    object-fit: cover;
+.square:hover {
+  transform: scale(1.1);
 }
 
-.card-content {
-    padding: 15px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.square.active {
+  background-color: #27ae60;
 }
 
-.card-content h3 {
-    margin: 0;
-    font-size: 1.2em;
-    flex-shrink: 0;
-    flex-grow: 0;
-}
-
-.card-content p {
-    margin: 10px 0;
-    flex-grow: 1;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #0c37e4;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    flex-shrink: 0;
-    flex-grow: 0;
-    max-width: 300px; 
-}
-
-.btn:hover {
-    background-color: #1b3bbc;
-}
-
-svg {
-    width: 30px; /* Ancho del SVG */
-    height: 30px; /* Alto del SVG */
-    fill: white; /* Color del ícono */
-    margin-bottom: -10px; 
-    margin-left: 5px;
-
-}
 
     </style>
 </head>
 <body>
-    <div class="carousel-container">
-        <div class="theme-buttons">
-            <button class="theme-button" data-theme="tema-1">Sociodemográfica 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M72 88a56 56 0 1 1 112 0A56 56 0 1 1 72 88zM64 245.7C54 256.9 48 271.8 48 288s6 31.1 16 42.3V245.7zm144.4-49.3C178.7 222.7 160 261.2 160 304c0 34.3 12 65.8 32 90.5V416c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V389.2C26.2 371.2 0 332.7 0 288c0-61.9 50.1-112 112-112h32c24 0 46.2 7.5 64.4 20.3zM448 416V394.5c20-24.7 32-56.2 32-90.5c0-42.8-18.7-81.3-48.4-107.7C449.8 183.5 472 176 496 176h32c61.9 0 112 50.1 112 112c0 44.7-26.2 83.2-64 101.2V416c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32zm8-328a56 56 0 1 1 112 0A56 56 0 1 1 456 88zM576 245.7v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM320 32a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM240 304c0 16.2 6 31 16 42.3V261.7c-10 11.3-16 26.1-16 42.3zm144-42.3v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM448 304c0 44.7-26.2 83.2-64 101.2V448c0 17.7-14.3 32-32 32H288c-17.7 0-32-14.3-32-32V405.2c-37.8-18-64-56.5-64-101.2c0-61.9 50.1-112 112-112h32c61.9 0 112 50.1 112 112z"/></svg>
-            </button>
-            <button class="theme-button" data-theme="tema-2">Socioeconómicos
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z"/></svg>
-            </button>
-            <button class="theme-button" data-theme="tema-3">Socioambientales
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M384 312.7c-55.1 136.7-187.1 54-187.1 54-40.5 81.8-107.4 134.4-184.6 134.7-16.1 0-16.6-24.4 0-24.4 64.4-.3 120.5-42.7 157.2-110.1-41.1 15.9-118.6 27.9-161.6-82.2 109-44.9 159.1 11.2 178.3 45.5 9.9-24.4 17-50.9 21.6-79.7 0 0-139.7 21.9-149.5-98.1 119.1-47.9 152.6 76.7 152.6 76.7 1.6-16.7 3.3-52.6 3.3-53.4 0 0-106.3-73.7-38.1-165.2 124.6 43 61.4 162.4 61.4 162.4 .5 1.6 .5 23.8 0 33.4 0 0 45.2-89 136.4-57.5-4.2 134-141.9 106.4-141.9 106.4-4.4 27.4-11.2 53.4-20 77.5 0 0 83-91.8 172-20z"/></svg>
-            </button>
-            <button class="theme-button" data-theme="tema-4">Sociosanitarios
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M142.4 21.9c5.6 16.8-3.5 34.9-20.2 40.5L96 71.1V192c0 53 43 96 96 96s96-43 96-96V71.1l-26.1-8.7c-16.8-5.6-25.8-23.7-20.2-40.5s23.7-25.8 40.5-20.2l26.1 8.7C334.4 19.1 352 43.5 352 71.1V192c0 77.2-54.6 141.6-127.3 156.7C231 404.6 278.4 448 336 448c61.9 0 112-50.1 112-112V265.3c-28.3-12.3-48-40.5-48-73.3c0-44.2 35.8-80 80-80s80 35.8 80 80c0 32.8-19.7 61-48 73.3V336c0 97.2-78.8 176-176 176c-92.9 0-168.9-71.9-175.5-163.1C87.2 334.2 32 269.6 32 192V71.1c0-27.5 17.6-52 43.8-60.7l26.1-8.7c16.8-5.6 34.9 3.5 40.5 20.2zM480 224a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
-            </button>
-            <button class="theme-button" data-theme="tema-5">Sociourbano o Habitabilidad
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
-            </button>
-        </div>
-        <div class="carousel">
-            <div class="carousel-inner">
-                <!-- Tema 1 -->
-                <div class="carousel-item" id="tema-1">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/500" alt="Imagen 1 de Tema 1">
-                        <div class="card-content">
-                            <h3>Indicadores Sociodemográfica</h3>
-                            <p>Sociodemográfica se refiere al estudio de la composición y características de la población. En este cuadro de mando, se mostrará la población según sexo declarado y por tramos de edades.</p>
-                            <a target="_blank" href="https://munivalpo.maps.arcgis.com/apps/dashboards/92ce8c891e904a9082232511095d383f" class="btn">Visitar</a>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="base-square base-1" onclick="toggleSquares(0, this)">Base 1</div>
+        <div class="base-square base-2" onclick="toggleSquares(1, this)">Base 2</div>
+        <div class="base-square base-3" onclick="toggleSquares(2, this)">Base 3</div>
+        <div class="base-square base-4" onclick="toggleSquares(3, this)">Base 4</div>
+        <div class="base-square base-5" onclick="toggleSquares(4, this)">Base 5</div>
+      </div>
+      
+      <div class="hidden-squares" id="hidden-squares-0">
+        <div class="square" onclick="markSquare">Tema 1-1</div>
+        <div class="square" onclick="markSquare">Tema 2-1</div>
+        <div class="square" onclick="markSquare">Tema 3-1</div>
+        <div class="square" onclick="markSquare">Tema 4-1</div>
+        <div class="square" onclick="markSquare">Tema 5-1</div>
+      </div>
+      
+      <div class="hidden-squares" id="hidden-squares-1">
+        <div class="square" onclick="markSquare">Tema 1-2</div>
+        <div class="square" onclick="markSquare">Tema 2-2</div>
+        <div class="square" onclick="markSquare">Tema 3-2</div>
+        <div class="square" onclick="markSquare">Tema 4-2</div>
+        <div class="square" onclick="markSquare">Tema 5-2</div>
+      </div>
+      
+      <div class="hidden-squares" id="hidden-squares-2">
+        <div class="square" onclick="markSquare">Tema 1-3</div>
+        <div class="square" onclick="markSquare">Tema 2-3</div>
+        <div class="square" onclick="markSquare">Tema 3-3</div>
+        <div class="square" onclick="markSquare">Tema 4-3</div>
+        <div class="square" onclick="markSquare">Tema 5-3</div>
+      </div>
+      
+      <div class="hidden-squares" id="hidden-squares-3">
+        <div class="square" onclick="markSquare">Tema 1-4</div>
+        <div class="square" onclick="markSquare">Tema 2-4</div>
+        <div class="square" onclick="markSquare">Tema 3-4</div>
+        <div class="square" onclick="markSquare">Tema 4-4</div>
+        <div class="square" onclick="markSquare">Tema 5-4</div>
+      </div>
+      
+      <div class="hidden-squares" id="hidden-squares-4">
+        <div class="square" onclick="markSquare">Tema 1-5</div>
+        <div class="square" onclick="markSquare">Tema 2-5</div>
+        <div class="square" onclick="markSquare">Tema 3-5</div>
+        <div class="square" onclick="markSquare">Tema 4-5</div>
+        <div class="square" onclick="markSquare">Tema 5-5</div>
+      </div>
+    
+  
+  </body>
+  
 
-                </div>
-                <!-- Tema 2 -->
-                <div class="carousel-item" id="tema-2">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/500" alt="Imagen 1 de Tema 2">
-                        <div class="card-content">
-                            <h3>Indicadores Socioeconómicos</h3>
-                            <p>Distribución Registro Social de Hogares</p>
-                            <a target="_blank" href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Tema 3 -->
-                <div class="carousel-item" id="tema-3">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/500" alt="Imagen 1 de Tema 3">
-                        <div class="card-content">
-                            <h3>Indicadores Socioambientales</h3>
-                            <p>Cantidad de metros cuadrados total comunal</p>
-                            <a target="_blank" href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Tema 4 -->
-                <div class="carousel-item" id="tema-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/500" alt="Imagen 1 de Tema 4">
-                        <div class="card-content">
-                            <h3>Indicadores Sociosanitarios</h3>
-                            <p>Descripción del panel 1 de Tema 4</p>
-                            <a target="_blank" href="#" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Tema 5 -->
-                <div class="carousel-item" id="tema-5">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/500" alt="Imagen 1 de Tema 5">
-                        <div class="card-content">
-                            <h3>Indicadores de Sociourbanos o  habitabilidad</h3>
-                            <p>Sociourbanos o Habitabilidad se refiere al estudio de las condiciones y características del entorno urbano y de las viviendas donde vive la población. En este cuadro de mando, se mostrará la: Cantidad de viviendas a nivel comunal</p>
-                            <a target="_blank" href="https://munivalpo.maps.arcgis.com/apps/dashboards/9ee90d88b36e43e7b11570a10e4cfdf6" class="btn">Visitar</a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
-document.querySelectorAll('.theme-button').forEach(button => {
-    button.addEventListener('click', () => {
-        const theme = button.getAttribute('data-theme');
+let activeBase = null;
 
-        // Ocultar los items actuales con una transición
-        document.querySelectorAll('.carousel-item.active .card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-        });
+function toggleSquares(index, element) {
+  const squaresContainers = document.querySelectorAll('.hidden-squares');
+  const baseSquares = document.querySelectorAll('.base-square');
 
-        // Esperar un poco para permitir la transición de salida
-        setTimeout(() => {
-            document.querySelectorAll('.carousel-item').forEach(item => {
-                item.classList.remove('active');
-            });
+  squaresContainers.forEach((container, i) => {
+    if (i === index) {
+      container.style.display = container.style.display === 'block' ? 'none' : 'block';
+      container.style.animation = container.style.display === 'block' ? 'slideDown 0.5s forwards' : 'slideUp 0.5s forwards';
+    } else {
+      container.style.display = 'none';
+    }
+  });
 
-            // Agregar la clase active al nuevo tema
-            document.getElementById(theme).classList.add('active');
+  baseSquares.forEach(base => {
+    base.classList.remove('active');
+  });
 
-            // Asegurarse de que los nuevos items estén ocultos inicialmente
-            document.querySelectorAll(`#${theme} .card`).forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-            });
+  element.classList.add('active');
+  activeBase = index;
+}
 
-            // Mostrar los nuevos items con una transición
-            setTimeout(() => {
-                document.querySelectorAll(`#${theme} .card`).forEach(card => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                });
-            }, 50); // Pequeño retraso para asegurar que los items se hayan ocultado primero
-        }, 500); // Tiempo suficiente para la transición de salida
-    });
-});
+function markSquare(element) {
+  const activeSquares = document.querySelectorAll('.hidden-squares')[activeBase].querySelectorAll('.square');
+  activeSquares.forEach(square => {
+    square.classList.remove('active');
+  });
+  element.classList.add('active');
+}
 
-// Set the first theme as active by default
-document.getElementById('tema-1').classList.add('active');
+// Animations
+const style = document.createElement('style');
+style.type = 'text/css';
+style.innerHTML = `
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 
-// Asegurarse de que las tarjetas del primer tema estén visibles al cargar la página
-setTimeout(() => {
-    document.querySelectorAll('#tema-1 .card').forEach(card => {
-        card.style.opacity = '1';
-        card.style .transform = 'translateY(0)';
-    });
-}, 50);
+@keyframes slideUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}`;
+document.getElementsByTagName('head')[0].appendChild(style);
 
-
-    // si algun dia me dice que java y javascript son lo mismo te juro que por
-    // tengo que realzir 
-    // varios cambios al html pero tengo tanta paja o estoy muy fustrado al punto que talves lo mejor que puedo hacer es irme si 
-    // he hecho lo que puedo pero realmente siento que 
-    // aqui en este lugar ahora mismo estoy estacado 
-    //por el simple hecho de que }
-    //
     </script>
 </body>
 </html>
