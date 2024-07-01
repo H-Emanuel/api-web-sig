@@ -1,11 +1,13 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel con Transiciones</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desplegar Enlaces</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
 body {
   display: flex;
   flex-direction: column;
@@ -19,137 +21,139 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  position: relative;
+  width: 540px; /* Ajustar según la necesidad */
 }
 
-.base-square {
-  width: 100px;
-  height: 100px;
-  border: none;
-  color: white;
-  font-size: 16px;
+.base-image {
+  width: 170px;
+  height: 170px;
   cursor: pointer;
   margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: opacity 0.3s;
+}
+
+.base-image.active {
+  opacity: 0.7;
+}
+
+.links-container {
+  width: 540px; /* Mismo ancho que el contenedor */
+  text-align: left;
+  margin-top: 20px;
+}
+
+.hidden-links {
+  display: none;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.hidden-links.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden-links.hide {
+  display: block;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.link {
+  display: block;
+  padding: 10px 20px;
+  margin: 5px 0;
+  background-color: #27bad9;
+  color: white;
+  text-decoration: none;
   transition: background-color 0.3s;
 }
 
-.base-1 {
-  background-color: #3498db; /* Azul */
-}
-
-.base-2 {
-  background-color: #e74c3c; /* Rojo */
-}
-
-.base-3 {
-  background-color: #f39c12; /* Naranja */
-}
-
-.base-4 {
-  background-color: #9b59b6; /* Púrpura */
-}
-
-.base-5 {
-  background-color: #2ecc71; /* Verde */
-}
-
-.base-square.active {
-  filter: brightness(0.8);
-}
-
-.hidden-squares {
-  display: none;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.square {
-  width: 100px;
-  height: 100px;
-  background-color: #2ecc71;
-  color: white;
-  display: inline-block;
-  line-height: 100px;
-  margin: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.square:hover {
-  transform: scale(1.1);
-}
-
-.square.active {
-  background-color: #27ae60;
+.link:hover {
+  background-color: #0a90ab;
 }
 
 
-    </style>
-</head>
+
+/* Animaciones */
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+</style>
+
 <body>
-    <div class="container">
-        <div class="base-square base-1" onclick="toggleSquares(0, this)">Base 1</div>
-        <div class="base-square base-2" onclick="toggleSquares(1, this)">Base 2</div>
-        <div class="base-square base-3" onclick="toggleSquares(2, this)">Base 3</div>
-        <div class="base-square base-4" onclick="toggleSquares(3, this)">Base 4</div>
-        <div class="base-square base-5" onclick="toggleSquares(4, this)">Base 5</div>
-      </div>
-      
-      <div class="hidden-squares" id="hidden-squares-0">
-        <div class="square" onclick="markSquare">Tema 1-1</div>
-        <div class="square" onclick="markSquare">Tema 2-1</div>
-        <div class="square" onclick="markSquare">Tema 3-1</div>
-        <div class="square" onclick="markSquare">Tema 4-1</div>
-        <div class="square" onclick="markSquare">Tema 5-1</div>
-      </div>
-      
-      <div class="hidden-squares" id="hidden-squares-1">
-        <div class="square" onclick="markSquare">Tema 1-2</div>
-        <div class="square" onclick="markSquare">Tema 2-2</div>
-        <div class="square" onclick="markSquare">Tema 3-2</div>
-        <div class="square" onclick="markSquare">Tema 4-2</div>
-        <div class="square" onclick="markSquare">Tema 5-2</div>
-      </div>
-      
-      <div class="hidden-squares" id="hidden-squares-2">
-        <div class="square" onclick="markSquare">Tema 1-3</div>
-        <div class="square" onclick="markSquare">Tema 2-3</div>
-        <div class="square" onclick="markSquare">Tema 3-3</div>
-        <div class="square" onclick="markSquare">Tema 4-3</div>
-        <div class="square" onclick="markSquare">Tema 5-3</div>
-      </div>
-      
-      <div class="hidden-squares" id="hidden-squares-3">
-        <div class="square" onclick="markSquare">Tema 1-4</div>
-        <div class="square" onclick="markSquare">Tema 2-4</div>
-        <div class="square" onclick="markSquare">Tema 3-4</div>
-        <div class="square" onclick="markSquare">Tema 4-4</div>
-        <div class="square" onclick="markSquare">Tema 5-4</div>
-      </div>
-      
-      <div class="hidden-squares" id="hidden-squares-4">
-        <div class="square" onclick="markSquare">Tema 1-5</div>
-        <div class="square" onclick="markSquare">Tema 2-5</div>
-        <div class="square" onclick="markSquare">Tema 3-5</div>
-        <div class="square" onclick="markSquare">Tema 4-5</div>
-        <div class="square" onclick="markSquare">Tema 5-5</div>
-      </div>
-    
+  <div class="container">
+    <img src="/media/image/Sociodemográfica.png" alt="Base 1" class="base-image" onclick="toggleLinks(0, this)">
+    <img src="/media/image/Socioeconomico.png" alt="Base 2" class="base-image" onclick="toggleLinks(1, this)">
+    <img src="/media/image/Socioambientales.png" alt="Base 3" class="base-image" onclick="toggleLinks(2, this)">
+    <img src="/media/image/Sociodesanitarios.png" alt="Base 4" class="base-image" onclick="toggleLinks(3, this)">
+    <img src="/media/image/Sociourbano.png" alt="Base 5" class="base-image" onclick="toggleLinks(4, this)">
+  </div>
   
-  </body>
-  
+  <div class="links-container">
+    <div class="hidden-links" id="hidden-links-0">
+      <a href="#" class="link" onclick="markLink(this)">Titulo de cuadro de mando 1</a>
+      <a href="#" class="link" onclick="markLink(this)">Titulo de cuadro de mando 2</a>
+      <a href="#" class="link" onclick="markLink(this)">Titulo de cuadro de mando 3</a>
+      <a href="#" class="link" onclick="markLink(this)">Titulo de cuadro de mando 4</a>
+      <a href="#" class="link" onclick="markLink(this)">Titulo de cuadro de mando 5</a>
+    </div>
+
+    <div class="hidden-links" id="hidden-links-1">
+      <a href="#" class="link" onclick="markLink(this)">Tema 1</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 2</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 3</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 4</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 5</a>
+    </div>
+
+    <div class="hidden-links" id="hidden-links-2">
+      <a href="#" class="link" onclick="markLink(this)">Tema 1</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 2</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 3</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 4</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 5</a>
+    </div>
+
+    <div class="hidden-links" id="hidden-links-3">
+      <a href="#" class="link" onclick="markLink(this)">Tema 1</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 2</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 3</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 4</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 5</a>
+    </div>
+
+    <div class="hidden-links" id="hidden-links-4">
+      <a href="#" class="link" onclick="markLink(this)">Tema 1</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 2</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 3</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 4</a>
+      <a href="#" class="link" onclick="markLink(this)">Tema 5</a>
+    </div>
+  </div>
 
 
-    <script>
-let activeBase = null;
+  <script src="script.js"></script>
+</body>
 
-function toggleSquares(index, element) {
-  const squaresContainers = document.querySelectorAll('.hidden-squares');
-  const baseSquares = document.querySelectorAll('.base-square');
+<script>
+  let activeBase = null;
 
-  squaresContainers.forEach((container, i) => {
+function toggleLinks(index, element) {
+  const linksContainers = document.querySelectorAll('.hidden-links');
+  const baseSquares = document.querySelectorAll('.base-image');
+
+  linksContainers.forEach((container, i) => {
     if (i === index) {
       container.style.display = container.style.display === 'block' ? 'none' : 'block';
       container.style.animation = container.style.display === 'block' ? 'slideDown 0.5s forwards' : 'slideUp 0.5s forwards';
@@ -166,10 +170,10 @@ function toggleSquares(index, element) {
   activeBase = index;
 }
 
-function markSquare(element) {
-  const activeSquares = document.querySelectorAll('.hidden-squares')[activeBase].querySelectorAll('.square');
-  activeSquares.forEach(square => {
-    square.classList.remove('active');
+function markLink(element) {
+  const activeLinks = document.querySelectorAll('.hidden-links')[activeBase].querySelectorAll('.link');
+  activeLinks.forEach(link => {
+    link.classList.remove('active');
   });
   element.classList.add('active');
 }
@@ -189,6 +193,5 @@ style.innerHTML = `
 }`;
 document.getElementsByTagName('head')[0].appendChild(style);
 
-    </script>
-</body>
+</script>
 </html>
